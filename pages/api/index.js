@@ -8,7 +8,7 @@ export default function handler(req, res) {
   
   res.status(200).json({ name: 'John Doe' })
 
-  db
+ 
 
   function insertMember(){
     // 넘어온 회원 정보
