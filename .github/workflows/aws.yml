@@ -4,4 +4,6 @@ jobs:
   echo:
     runs-on: windows-2022
     steps:
-      - run: echo 'Hello, GitHub Actions!'
+      - run: echo "NEXT_PUBLIC_USER=$NEXT_PUBLIC_USER" >> .env.local
+      env.local:
+          NEXT_PUBLIC_USER: ${{secrets.NEXT_PUBLIC_USER}}
