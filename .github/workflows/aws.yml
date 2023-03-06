@@ -3,6 +3,7 @@ on : push
 jobs:
   echo:
     runs-on: windows-2022
+    name : dbinfo
     steps:
       - run: | 
             echo "NEXT_PUBLIC_USER=${{secrets.NEXT_PUBLIC_USER}}"
