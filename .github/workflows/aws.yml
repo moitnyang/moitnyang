@@ -4,8 +4,7 @@ jobs:
   echo:
     runs-on: windows-2022
     steps:
-      - run: echo "NEXT_PUBLIC_USER=${{secrets.NEXT_PUBLIC_USER}} , NEXT_PUBLIC_PORT=${{secrets.NEXT_PUBLIC_PORT}} 
-      , NEXT_PUBLIC_PASS=${{secrets.NEXT_PUBLIC_PASS}}, NEXT_PUBLIC_HOST=${{secrets.NEXT_PUBLIC_HOST}}" >> .env
+      - run: echo "NEXT_PUBLIC_USER=${{secrets.NEXT_PUBLIC_USER}}" , "NEXT_PUBLIC_PORT=${{secrets.NEXT_PUBLIC_PORT}}" , "NEXT_PUBLIC_PASS=${{secrets.NEXT_PUBLIC_PASS}}", "NEXT_PUBLIC_HOST=${{secrets.NEXT_PUBLIC_HOST}}" >> .env
         env:
           NEXT_PUBLIC_USER: ${{secrets.NEXT_PUBLIC_USER}}
           NEXT_PUBLIC_PORT: ${{secrets.NEXT_PUBLIC_PORT}}
