@@ -4,5 +4,7 @@ jobs:
   echo:
     runs-on: windows-2022
     steps:
-      - run: echo "NEXT_PUBLIC_USER=${{secrets.NEXT_PUBLIC_USER}}" 
+      - run: echo "NEXT_PUBLIC_USER=${{secrets.NEXT_PUBLIC_USER}} >> env.loacl" 
+      env.loacl:
+          NEXT_PUBLIC_USER: ${{secrets.NEXT_PUBLIC_USER}}
 
