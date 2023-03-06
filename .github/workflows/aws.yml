@@ -1,0 +1,20 @@
+name : aws and db workflow
+on : push
+jobs:
+  echo:
+    runs-on: windows-2022
+    name : dbinfo
+    steps:
+      - run: | 
+            echo "NEXT_PUBLIC_USER=${{secrets.NEXT_PUBLIC_USER}}"
+            echo "NEXT_PUBLIC_PORT=${{secrets.NEXT_PUBLIC_PORT}}"  
+            echo "NEXT_PUBLIC_PASS=${{secrets.NEXT_PUBLIC_PASS}}" 
+            echo "NEXT_PUBLIC_HOST=${{secrets.NEXT_PUBLIC_HOST}}"
+            echo "NEXT_PUBLIC_DATABASE=${{secrets.NEXT_PUBLIC_DATABASE}}" >> .env
+        env:
+          NEXT_PUBLIC_USER: ${{secrets.NEXT_PUBLIC_USER}}
+          NEXT_PUBLIC_PORT: ${{secrets.NEXT_PUBLIC_PORT}}
+          NEXT_PUBLIC_PASS: ${{secrets.NEXT_PUBLIC_PASS}}
+          NEXT_PUBLIC_HOST: ${{secrets.NEXT_PUBLIC_HOST}}
+          NEXT_PUBLIC_DATABASE: ${{secrets.NEXT_PUBLIC_DATABASE}}
+

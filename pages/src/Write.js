@@ -16,7 +16,7 @@ function Write() {
   const uploadToClient = (e) => {
     if (e.target.files && e.target.files[0]) {
       const i = e.target.files[0];
-      if (i.size > 300000) { //300kb 제한
+      if (i.size > 500000) { //500kb 제한
         alert("파일사이즈가 초과하였습니다.");
       }
       else {
@@ -66,6 +66,18 @@ function Write() {
       alert('입력하지 않은 정보가 있습니다.')
     }
   }
+  // 가격 정규식
+  const priceCk=(e)=>{
+    var price = e.target.value; //받은 값
+    let check = /^[0-9]+$/;  // 숫자만 추출하는 정규식
+    if(!check.test(price)){
+      alert("숫자만 입력 가능합니다.")
+      e.target.value=""
+    }else{
+      setData({ ...data, price: e.target.value })
+    }
+
+  }
   
   return (
     <>
@@ -85,7 +97,7 @@ function Write() {
           {/*  <div className={styles.preview}>
             {imageSrc && <img src={imageSrc} alt="preview-img" />}
           </div> */}
-          {imageSrc && <p>이미지를 클릭하여 사진을 변경할 수 있습니다.</p>}<p>※300Kb 이하의 사진만 가능합니다.</p>
+          {imageSrc && <p>이미지를 클릭하여 사진을 변경할 수 있습니다.</p>}<p>※500Kb 이하의 사진만 가능합니다.</p>
         </div>
         <div className={styles.writeTextBox}>
           <input type="text" placeholder='제목' onChange={(e) => setData({ ...data, title: e.target.value })} />
@@ -105,7 +117,7 @@ function Write() {
             </div>
           </div>
           <div className={styles.priceBox}>
-            <p><b>\</b></p><input type="text" placeholder='가격' onChange={(e) => setData({ ...data, price: e.target.value })} />
+            <p><b>\</b></p><input type="text" placeholder='가격' onChange={(e) => priceCk(e)} />
           </div>
           <textarea placeholder='내용을 입력하세요.' onChange={(e) => setData({ ...data, content: e.target.value })} />
         </div>
