@@ -4,7 +4,8 @@ jobs:
   echo:
     runs-on: windows-2022
     steps:
-      - run:echo "NEXT_PUBLIC_USER=${{secrets.NEXT_PUBLIC_USER}}"
+      - run: | 
+            echo "NEXT_PUBLIC_USER=${{secrets.NEXT_PUBLIC_USER}}"
             echo "NEXT_PUBLIC_PORT=${{secrets.NEXT_PUBLIC_PORT}}"  
             echo "NEXT_PUBLIC_PASS=${{secrets.NEXT_PUBLIC_PASS}}" 
             echo "NEXT_PUBLIC_HOST=${{secrets.NEXT_PUBLIC_HOST}}"
