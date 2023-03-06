@@ -1,0 +1,26 @@
+.map{
+    width:95%;
+    height:350px;
+    margin: 50px auto;
+    border: 1px solid rgb(171, 171, 171);
+}
+
+.listHeader{
+    display: flex;
+    align-items: center;
+    height: 70px;
+    position: relative;
+    padding: 0 5px;
+    font-family: 'Cafe24Ssurround';
+    border-bottom: 1px solid rgb(157, 157, 157);
+    p{
+        margin-left: 5px;
+        color: rgb(130, 130, 130);
+        font-size: 18px;
+    }
+    button{
+        background-color: white;
+        border: none;
+        margin:0;
+    }
+}

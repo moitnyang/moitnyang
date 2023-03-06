@@ -1,0 +1,179 @@
+@font-face {
+    font-family: 'Cafe24Ssurround';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Dovemayo_gothic';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.1/Dovemayo_gothic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.infoHeader {
+    display: flex;
+    align-items: center;
+    height: 70px;
+    position: relative;
+    padding: 0 5px;
+    font-family: 'Cafe24Ssurround';
+    border-bottom: 1px solid rgb(157, 157, 157);
+
+    p {
+        margin-left: 5px;
+        color: rgb(130, 130, 130);
+        font-size: 18px;
+    }
+
+    button {
+        background-color: white;
+        border: none;
+        margin: 0;
+        cursor: pointer;
+
+        .home {
+            position: absolute;
+            top: 25%;
+            right: 15px;
+        }
+    }
+
+
+}
+
+.infoContainer {
+    font-family: 'Dovemayo_gothic';
+
+    /* color: rgb(130, 130, 130); */
+    .imgBox {
+        border-bottom: 1px solid rgb(157, 157, 157);
+        position: relative;
+
+        >figure {
+            img {
+                max-height: 500px;
+            }
+        }
+
+        .likebtn {
+            position: absolute;
+
+            bottom: 20px;
+            right: 20px;
+        }
+
+    }
+
+    .idBox {
+        border-bottom: 1px solid rgb(157, 157, 157);
+
+        >div {
+            padding: 20px 25px;
+
+            >p {
+                margin: 5px 0;
+
+                &:nth-child(1) {
+                    font-size: 24px;
+
+                }
+            }
+        }
+    }
+
+    .contentBox {
+        border-bottom: 1px solid rgb(157, 157, 157);
+
+        >div {
+            padding: 20px 25px;
+
+            >p {
+                margin: 5px 0;
+
+                &:nth-child(1) {
+                    font-size: 30px;
+                    font-weight: bold;
+                }
+
+                &:nth-child(2) {
+                    text-decoration: underline;
+                    font-size: 18px;
+                    line-height: 40px;
+                }
+
+                &:nth-child(3) {
+                    font-size: 18px;
+                    line-height: 40px;
+                }
+
+                &:nth-child(4) {
+                    font-size: 24px;
+                    line-height: 40px;
+                }
+            }
+        }
+    }
+
+    .commentBox {
+        .inputBox {
+            position: relative;
+            border-bottom: 1px solid rgb(157, 157, 157);
+            padding: 20px 25px;
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            >input[type="text"]{
+                all:unset;
+                flex-grow: 1;
+                background-color: #eee;
+                height: 50px;
+                border-radius: 25px;
+                padding: 0 25px;
+
+            }
+            >button {
+                
+                all: unset;
+                /* background: #F0E2C6; */
+                width: 100px;
+                height: 50px;
+                border-radius: 10px;
+                text-align: center;
+                font-size: 24px;
+                cursor: pointer;
+            }
+        }
+        .commentContent{
+            padding: 20px 25px;
+            >div{
+                margin-bottom: 30px;
+                border-bottom: 1px solid #e6e6e6;
+                >.commentInfo{
+                    display: flex;
+                    justify-content: space-between;
+                    >p{
+                        font-size: 16px;
+                        line-height: 30px;
+                        &:nth-child(1){
+                           margin-right: 30px;
+                           font-size: 20px;
+                           font-weight: bold;
+                        }
+                        
+                    }
+                }
+                >p{
+                    margin-bottom: 15px;
+                    font-size: 16px;
+                }
+                &:nth-last-child(1){
+                    margin-bottom: 0px;
+                    border-bottom: 0px solid #e6e6e6;
+                }
+            }
+        }
+    }
+}
