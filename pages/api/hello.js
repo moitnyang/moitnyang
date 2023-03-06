@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import {executeQuery} from './db';
+import db from './db';
 
 // 회원 가입
 export default function handler(req, res) {
@@ -8,7 +8,7 @@ export default function handler(req, res) {
   
   res.status(200).json({ name: 'John Doe' })
 
-
+  db
 
   function insertMember(){
     // 넘어온 회원 정보
