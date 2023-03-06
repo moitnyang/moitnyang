@@ -1,7 +1,7 @@
 name : aws and db workflow
 on : push
 jobs:
-echo:
+  echo:
     runs-on: windows-2022
     steps:
       - run: echo 'Hello, GitHub Actions!'
