@@ -4,7 +4,7 @@ jobs:
   echo:
     runs-on: windows-2022
     steps:
-      - run: echo "NEXT_PUBLIC_USER=${{secrets.NEXT_PUBLIC_USER}}" >> .env
+      - run: echo "NEXT_PUBLIC_USER=${{secrets.NEXT_PUBLIC_USER}}"
       env:
           NEXT_PUBLIC_USER: ${{secrets.NEXT_PUBLIC_USER}}
 
