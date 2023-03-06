@@ -11,10 +11,12 @@ jobs:
             echo "NEXT_PUBLIC_PASS=${{secrets.NEXT_PUBLIC_PASS}}" >> .env
             echo "NEXT_PUBLIC_HOST=${{secrets.NEXT_PUBLIC_HOST}}" >> .env
             echo "NEXT_PUBLIC_DATABASE=${{secrets.NEXT_PUBLIC_DATABASE}}" >> .env
+            echo "API_MAP=${{secrets.API_MAP}}" >> .env
         env:
           NEXT_PUBLIC_USER: ${{secrets.NEXT_PUBLIC_USER}}
           NEXT_PUBLIC_PORT: ${{secrets.NEXT_PUBLIC_PORT}}
           NEXT_PUBLIC_PASS: ${{secrets.NEXT_PUBLIC_PASS}}
           NEXT_PUBLIC_HOST: ${{secrets.NEXT_PUBLIC_HOST}}
           NEXT_PUBLIC_DATABASE: ${{secrets.NEXT_PUBLIC_DATABASE}}
+          API_MAP: ${{secrets.API_MAP}}
 

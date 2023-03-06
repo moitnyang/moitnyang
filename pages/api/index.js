@@ -14,7 +14,6 @@ export default function handler(req, res) {
     // 넘어온 회원 정보
     // body {name , id , pass , tel }
     // executeQuery("insert into member('id','name','pass','tel') vales(?,?,?,?)",[body.id, body.name, body.pass, body.tel])
-    
     res.send("회원가입 성공")
   }
 
