@@ -5,13 +5,14 @@
 }
 
 .input_text{
-  @apply w-full py-4 px-6 border rounded-xl bg-slate-50;
-  @apply focus:outline-none border-none
+  @apply w-full py-2 md:py-4 px-6 border rounded-xl bg-slate-50;
+  @apply focus:outline-none border-none;
+  @apply placeholder:text-sm
 }
 
 .button{
   @apply w-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-md;
-  @apply py-3 text-gray-50 text-lg
+  @apply py-3 text-gray-50 text-base md:text-lg
 }
 
 .button:hover{

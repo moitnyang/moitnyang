@@ -4,7 +4,7 @@ import Layout from "@/layout/layout";
 import Link from "next/link";
 import Image from 'next/image'
 import styles from "@/styles/Form.module.css";
-import { HiAtSymbol, HiLockClosed } from "react-icons/hi";
+import { HiOutlineIdentification, HiLockClosed } from "react-icons/hi";
 import { signIn, signOut } from "next-auth/react"
 import { useFormik } from 'formik';
 import login_validate from '@/lib/validate'
@@ -63,19 +63,25 @@ export default function Login() {
         </div>
         {/* form */}
         <form className="flex flex-col gap-5" onSubmit={formik.handleSubmit}>
-          <div className={`${styles.input_group} ${formik.errors.email && formik.touched.email ? "border-red-500":""}`}>
+        <div
+            className={`${styles.input_group} ${
+              formik.errors.id && formik.touched.id
+                ? "border-red-500"
+                : ""
+            }`}
+          >
             <input
-              type="email"
-              name="email"
-              placeholder="이메일을 입력해주세요."
+              type="text"
+              name="id"
+              placeholder="아이디"
               className={styles.input_text}
-              {...formik.getFieldProps("email")}
+              {...formik.getFieldProps("id")}
             />
             <span className="icon flex items-center px-4">
-              <HiAtSymbol size={25}/>
+              <HiOutlineIdentification size={25} />
             </span>
           </div>
-            {/* {formik.errors.email && formik.touched.email ?<span className="text-red-500">{formik.errors.email}</span>:<></>} */}
+          {/* {formik.errors.email && formik.touched.email ?<span className="text-red-500">{formik.errors.email}</span>:<></>} */}
           <div className={`${styles.input_group} ${formik.errors.password && formik.touched.password ? "border-red-500":""}`}>
             <input
               type={`${show ? "text" : "password"}`}
@@ -112,10 +118,10 @@ export default function Login() {
           </div>
         </form>
         {/* bottom */}
-        <div className="text-center text-gray-400 ">
+        <div className="text-center text-gray-400 text-sm md:text-base">
           don't have an account yet?{" "}
           <Link href={"/register"}>
-            <div className="text-blue-700">Sign Up</div>
+            <div className="text-blue-700 text-sm md:text-base">Sign Up</div>
           </Link>
         </div>
       </section>
