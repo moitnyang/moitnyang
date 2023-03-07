@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
-import Layout from "@/pages/src/Layout";
+import Layout from "./Layout";
 import Link from "next/link";
 
 import styles from "@/styles/Form.module.css";
-import { HiOutlineUser, HiAtSymbol, HiLockClosed } from "react-icons/hi";
+import { HiOutlineUser, HiOutlineIdentification, HiLockClosed, HiPhone } from "react-icons/hi";
 import { useFormik } from "formik";
 import { registerValidate } from "@/lib/validate";
 import { useRouter } from "next/router";
@@ -14,17 +14,17 @@ export default function Register() {
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
-      username: "",
-      email: "",
+      id: "",
       password: "",
-      cpassword: "",
+      username: "",
+      phone: "",
     },
     validate: registerValidate,
-    onSubmit,
+    onSubmit
   });
 
   async function onSubmit(values) {
-
+    
     const response = await fetch('http://localhost:3000/api/auth/signup', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -55,48 +55,29 @@ export default function Register() {
 
       <section className="w-3/4 mx-auto flex flex-col gap-10">
         <div className="title">
-          <h1 className="text-gray-800 text-4xl font-bold py-4">회원가입</h1>
-          <p className="w-3/4 mx-auto text-gray-400">
-            머있냥에 온 걸 환영한다냥~ 이용하려면 회원가입하라냥
+          <h1 className="text-gray-800 md:text-4xl text-3xl font-bold py-4">회원가입</h1>
+          <p className="w-3/4 mx-auto text-gray-400 text-sm md:text-lg">
+            회원가입하라냥
           </p>
         </div>
         {/* form */}
         <form className="flex flex-col gap-5" onSubmit={formik.handleSubmit}>
-          <div
+        <div
             className={`${styles.input_group} ${
-              formik.errors.username && formik.touched.username
+              formik.errors.id && formik.touched.id
                 ? "border-red-500"
                 : ""
             }`}
           >
             <input
               type="text"
-              name="Username"
-              placeholder="이름"
+              name="id"
+              placeholder="아이디"
               className={styles.input_text}
-              {...formik.getFieldProps("username")}
+              {...formik.getFieldProps("id")}
             />
             <span className="icon flex items-center px-4">
-              <HiOutlineUser size={25} />
-            </span>
-          </div>
-          {/* {formik.errors.username && formik.touched.username ?<span className="text-red-500">{formik.errors.username}</span>:<></>} */}
-          <div
-            className={`${styles.input_group} ${
-              formik.errors.email && formik.touched.email
-                ? "border-red-500"
-                : ""
-            }`}
-          >
-            <input
-              type="email"
-              name="email"
-              placeholder="이메일"
-              className={styles.input_text}
-              {...formik.getFieldProps("email")}
-            />
-            <span className="icon flex items-center px-4">
-              <HiAtSymbol size={25} />
+              <HiOutlineIdentification size={25} />
             </span>
           </div>
           {/* {formik.errors.email && formik.touched.email ?<span className="text-red-500">{formik.errors.email}</span>:<></>} */}
@@ -122,25 +103,45 @@ export default function Register() {
             </span>
           </div>
           {/* {formik.errors.password && formik.touched.password ?<span className="text-red-500">{formik.errors.password}</span>:<></>} */}
+          
           <div
             className={`${styles.input_group} ${
-              formik.errors.cpassword && formik.touched.cpassword
+              formik.errors.username && formik.touched.username
                 ? "border-red-500"
                 : ""
             }`}
           >
             <input
-              type={`${show.cpassword ? "text" : "password"}`}
-              name="cpassword"
-              placeholder="비밀번호확인"
+              type="text"
+              name="username"
+              placeholder="이름"
               className={styles.input_text}
-              {...formik.getFieldProps("cpassword")}
+              {...formik.getFieldProps("username")}
+            />
+            <span className="icon flex items-center px-4">
+              <HiOutlineUser size={25} />
+            </span>
+          </div>
+          {/* {formik.errors.username && formik.touched.username ?<span className="text-red-500">{formik.errors.username}</span>:<></>} */}
+          <div
+            className={`${styles.input_group} ${
+              formik.errors.phone && formik.touched.phone
+                ? "border-red-500"
+                : ""
+            }`}
+          >
+            <input
+              type="tel"
+              name="phone"
+              placeholder="전화번호"
+              className={styles.input_text}
+              {...formik.getFieldProps("phone")}
             />
             <span
               className="icon flex items-center px-4"
               onClick={() => setShow({ ...show, cpassword: !show.cpassword })}
             >
-              <HiLockClosed size={25} />
+              <HiPhone size={25} />
             </span>
           </div>
           {/* {formik.errors.cpassword && formik.touched.cpassword ?<span className="text-red-500">{formik.errors.cpassword}</span>:<></>} */}
@@ -155,7 +156,7 @@ export default function Register() {
         {/* bottom */}
         <div className="text-center text-gray-400 ">
           Have an account?{" "}
-          <Link href={"/login"}>
+          <Link href={"/src/Login"}>
             <div className="text-blue-700">Sign In</div>
           </Link>
         </div>

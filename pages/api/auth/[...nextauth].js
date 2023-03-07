@@ -15,12 +15,12 @@ export default NextAuth({
   providers:[
     //Google Provider
     GoogleProvider({
-      clientId:"337106084645-8nha4v8f3vg4fut11gjs9qhrp6nbumuk.apps.googleusercontent.com",
-      clientSecret:"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"
+      clientId: process.env.Google_ID,
+      clientSecret: process.env.Google_SECRET
     }),
     GithubProvider({
-      clientId:"f266d57c5b576b16893b",
-      clientSecret:"8c5b8c8b200ab2c522f2253893f55a9153a2490c"
+      clientId:process.env.GITHUB_ID,
+      clientSecret:process.env.GITHUB_SECRET
     }),
     //회원가입
     CredentialsProvider({
