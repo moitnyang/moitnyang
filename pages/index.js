@@ -12,6 +12,7 @@ export default function Home() {
   const loading = () => {
     setTimeout(() => {
       setLoad(false)
+      
     }, 1000)
   }
 
