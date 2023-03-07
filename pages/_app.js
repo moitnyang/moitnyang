@@ -38,6 +38,7 @@ export default function App({ Component, pageProps }) {
         if (c == 'sport') { return "스포츠" }
         if (c == 'likeItems') { return "찜목록" }
         if (c == 'hotItems') { return "인기매물" }
+        
       }
     })
     , []);

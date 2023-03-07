@@ -1,16 +1,14 @@
 import { useState } from "react";
 import Head from "next/head";
-
+import Layout from "./Layout";
 import Link from "next/link";
 import Image from 'next/image'
 import styles from "@/styles/Form.module.css";
-import { HiAtSymbol, HiLockClosed } from "react-icons/hi";
+import { HiOutlineIdentification, HiLockClosed } from "react-icons/hi";
 import { signIn, signOut } from "next-auth/react"
 import { useFormik } from 'formik';
 import login_validate from '@/lib/validate'
 import { useRouter } from "next/router";
-import Layout from "@/pages/src/Layout";
-
 
 export default function Login() {
 
@@ -65,19 +63,25 @@ export default function Login() {
         </div>
         {/* form */}
         <form className="flex flex-col gap-5" onSubmit={formik.handleSubmit}>
-          <div className={`${styles.input_group} ${formik.errors.email && formik.touched.email ? "border-red-500":""}`}>
+        <div
+            className={`${styles.input_group} ${
+              formik.errors.id && formik.touched.id
+                ? "border-red-500"
+                : ""
+            }`}
+          >
             <input
-              type="email"
-              name="email"
-              placeholder="이메일을 입력해주세요."
+              type="text"
+              name="id"
+              placeholder="아이디"
               className={styles.input_text}
-              {...formik.getFieldProps("email")}
+              {...formik.getFieldProps("id")}
             />
             <span className="icon flex items-center px-4">
-              <HiAtSymbol size={25}/>
+              <HiOutlineIdentification size={25} />
             </span>
           </div>
-            {/* {formik.errors.email && formik.touched.email ?<span className="text-red-500">{formik.errors.email}</span>:<></>} */}
+          {/* {formik.errors.email && formik.touched.email ?<span className="text-red-500">{formik.errors.email}</span>:<></>} */}
           <div className={`${styles.input_group} ${formik.errors.password && formik.touched.password ? "border-red-500":""}`}>
             <input
               type={`${show ? "text" : "password"}`}
@@ -102,22 +106,22 @@ export default function Login() {
           </div>
           <div className="input-button">
             <button type="button" onClick={handleGoogleSignin} className={styles.button_custom}>
-              <Image src={"/assets/google.svg"} width="20" height={20}></Image>
+              <Image src={"/assets/google.svg"} width="20" height={20} alt=""></Image>
               Sign In with Google
             </button>
           </div>
           <div className="input-button">
             <button type="button" onClick={handleGithubSignin} className={styles.button_custom}>
-              <Image src={"/assets/github.svg"} width={25} height={25}></Image>
+              <Image src={"/assets/github.svg"} width={25} height={25} alt=""></Image>
               Sign In with Github
             </button>
           </div>
         </form>
         {/* bottom */}
-        <div className="text-center text-gray-400 ">
-          don't have an account yet?{" "}
+        <div className="text-center text-gray-400 text-sm md:text-base">
+          dont have an account yet?{" "}
           <Link href={"/src/Register"}>
-            <div className="text-blue-700">Sign Up</div>
+            <div className="text-blue-700 text-sm md:text-base">Sign Up</div>
           </Link>
         </div>
       </section>

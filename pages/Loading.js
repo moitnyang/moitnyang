@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image';
 import styles from '@/styles/loading.module.scss';
 
-function Loading() {
+export default function Loading() {
   return (
     <div className={styles.loadingCon}>
       <p>내 주변의 모든 것</p>
@@ -12,4 +12,3 @@ function Loading() {
   )
 }
 
-export default Loading

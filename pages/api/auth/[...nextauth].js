@@ -15,8 +15,8 @@ export default NextAuth({
   providers:[
     //Google Provider
     GoogleProvider({
-      clientId:process.env.GOOGLE_CLIENT_ID,
-      clientSecret:process.env.GOOGLE_SECRET
+      clientId: process.env.Google_ID,
+      clientSecret: process.env.Google_SECRET
     }),
     GithubProvider({
       clientId:process.env.GITHUB_ID,
@@ -29,10 +29,10 @@ export default NextAuth({
       async authorize(credentials, req){
 
         //check user existance
-        /* const result = await Users.findOne({ email:credentials.email })
+        const result = ({ email:credentials.email })
         if(!result){
           throw new Error("No user Found with Email Please Sign Up...")
-        } */
+        }
 
         //compare()
         const checkPassword = await compare(credentials.password, result.password);
@@ -47,5 +47,5 @@ export default NextAuth({
       }
     })
   ],
-  // secret: process.env.SECRET,
+
 })

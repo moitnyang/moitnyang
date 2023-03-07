@@ -1,17 +1,22 @@
 import styles from '@/styles/Home.module.scss'
 import { useEffect, useState } from 'react';
-
 import Link from "next/link";
 import Head from "next/head";
-import First from './src/First';
 import { getSession, useSession, signOut } from "next-auth/react"
-import Loading from './src/Loading';
+import Loading from './Loading';
 
 export default function Home() {
   const [load, setLoad] = useState(true);
-  /*     {
-        load ? <First/> : <Loading/>
-      } */
+  const loadingFn = () => {
+    setTimeout(() => {
+      setLoad(false)
+      
+    }, 1000)
+  }
+
+  useEffect(() => {
+    loadingFn();
+  }, [])
   const { data: session, status } = useSession();
 
   function handleSignOut() {
@@ -24,8 +29,8 @@ export default function Home() {
         <Head>
           <title>Home Page</title>
         </Head>
+        {load ? <Loading /> : session ? User({ session, handleSignOut }) : Guest()}
 
-        {session ? User({ session, handleSignOut }) : Guest()}
       </div>
     </>
   )
@@ -37,7 +42,7 @@ function Guest() {
       <h3 className="text-4xl font-bold">Guest Homepage</h3>
 
       <div className="flex justify-center">
-        <Link href={"/login"}>
+        <Link href={"/src/Login"}>
           <div className="mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-gray-50">
             Sign In
           </div>
@@ -74,7 +79,7 @@ function User({ session, handleSignOut }) {
   );
 }
 //인증이 안된경우 로그인페이지로~~~
-export async function getServerSideProps({ req }) {
+/* export async function getServerSideProps({ req }) {
   const session = await getSession({ req })
 
   if (!session) {
@@ -94,4 +99,4 @@ export async function getServerSideProps({ req }) {
       }
     }
   }
-}
+} */
