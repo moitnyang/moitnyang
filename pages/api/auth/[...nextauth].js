@@ -15,12 +15,12 @@ export default NextAuth({
   providers:[
     //Google Provider
     GoogleProvider({
-      clientId:process.env.GOOGLE_CLIENT_ID,
-      clientSecret:process.env.GOOGLE_SECRET
+      clientId:"337106084645-8nha4v8f3vg4fut11gjs9qhrp6nbumuk.apps.googleusercontent.com",
+      clientSecret:"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"
     }),
     GithubProvider({
-      clientId:process.env.GITHUB_ID,
-      clientSecret:process.env.GITHUB_SECRET
+      clientId:"f266d57c5b576b16893b",
+      clientSecret:"8c5b8c8b200ab2c522f2253893f55a9153a2490c"
     }),
     //회원가입
     CredentialsProvider({
@@ -29,10 +29,10 @@ export default NextAuth({
       async authorize(credentials, req){
 
         //check user existance
-        /* const result = await Users.findOne({ email:credentials.email })
+        const result = ({ email:credentials.email })
         if(!result){
           throw new Error("No user Found with Email Please Sign Up...")
-        } */
+        }
 
         //compare()
         const checkPassword = await compare(credentials.password, result.password);
@@ -47,5 +47,5 @@ export default NextAuth({
       }
     })
   ],
-  // secret: process.env.SECRET,
+
 })

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import axios from 'axios';
 import styles from '@/styles/write.module.scss';
 import { CategoryTranslate } from '../_app';
+import axios from 'axios';
 function Write() {
   const router = useRouter();
   const [image, setImage] = useState(null);
@@ -14,6 +15,9 @@ function Write() {
 
 
   const uploadToClient = (e) => {
+    axios.get("/api").then(res=>{
+      console.log(res.data);
+    })
     if (e.target.files && e.target.files[0]) {
       const i = e.target.files[0];
       if (i.size > 500000) { //500kb 제한
