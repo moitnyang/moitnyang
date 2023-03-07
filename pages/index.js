@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react';
 
 import Link from "next/link";
 import Head from "next/head";
-import First from './src/First';
+
 import { getSession, useSession, signOut } from "next-auth/react"
-import Loading from './src/Loading';
+import Loading from '@/pages/src/Loading';
 
 export default function Home() {
   const [load, setLoad] = useState(true);
-  const loading = () => {
+  const loadingFn = () => {
     setTimeout(() => {
       setLoad(false)
       
@@ -17,7 +17,7 @@ export default function Home() {
   }
 
   useEffect(() => {
-    loading();
+    loadingFn();
   }, [])
   const { data: session, status } = useSession();
 
