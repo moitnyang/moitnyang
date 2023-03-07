@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Link from "next/link";
 import Head from "next/head";
 import { getSession, useSession, signOut } from "next-auth/react"
-import Loading from './src/Loading';
+import Loading from './Loading';
 
 export default function Home() {
   const [load, setLoad] = useState(true);
