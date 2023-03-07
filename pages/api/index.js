@@ -6,7 +6,7 @@ export default function handler(req, res) {
   const {body,method} =req;
   
   
-  res.status(200).json(process.env.GITHUB_ID)
+  res.status(200).json(process.env.NEXT_PUBLIC_USER)
 
  
 
