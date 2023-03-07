@@ -4,7 +4,7 @@ import Image from 'next/image';
 import axios from 'axios';
 import styles from '@/styles/write.module.scss';
 import { CategoryTranslate } from '../_app';
-import axios from 'axios';
+
 function Write() {
   const router = useRouter();
   const [image, setImage] = useState(null);
