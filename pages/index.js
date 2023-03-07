@@ -1,11 +1,9 @@
 import styles from '@/styles/Home.module.scss'
 import { useEffect, useState } from 'react';
-
 import Link from "next/link";
 import Head from "next/head";
-
 import { getSession, useSession, signOut } from "next-auth/react"
-import Loading from '@/pages/src/Loading';
+import Loading from './src/Loading';
 
 export default function Home() {
   const [load, setLoad] = useState(true);
