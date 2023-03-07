@@ -6,7 +6,7 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <Script
-            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=25285b69f08856d4830ac3b545a6b5b6&libraries=services,clusterer&autoload=false"
+            src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.API_MAP}&libraries=services,clusterer&autoload=false`}
             strategy="beforeInteractive"
         />
         <Script

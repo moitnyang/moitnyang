@@ -3,7 +3,7 @@ import { useRouter} from 'next/router';
 import { CategoryContext } from '../_app';
 import { CategoryTranslate } from '../_app';
 import Image from 'next/image';
-import styles from '@/styles/First.module.scss';
+import styles from '@/styles/first.module.scss';
 
 function First() {
     const router = useRouter();

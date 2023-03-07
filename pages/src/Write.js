@@ -32,7 +32,6 @@ function Write() {
     reader.readAsDataURL(fileBlob);
     return new Promise((resolve) => {
       reader.onload = () => {
-        
         setImageSrc(reader.result);
         resolve();
       };
