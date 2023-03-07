@@ -1,5 +1,5 @@
 import multer from "multer";
-
+import {executeQuery} from "../db";
 // multer는 미들웨어 형태로 구동된다
 // 프로미스 객체 생성하여 직접 구현
 // 참고 : https://github.com/vercel/next.js/discussions/37886
@@ -34,16 +34,22 @@ export default async function handler(req, res) {
         try {
             await runMiddleware(req, res, upload.single("image"))
             const title = req.body.title;
-            const category = req.body.category;
+            const price = req.body.price;
             const content = req.body.content;
+            const category = req.body.category;
+            const date = new Date().getTime();
+            const location = "기타";
+            const member_id = "id"
             const fileBuffer = req.file.fileBuffer;
             const fileName = req.body.name;
             const fileType = req.file.mimetype;
             const uploadCheck = await uploadFile(fileBuffer, fileName, fileType);  //이미지 업로드에 관한 함수
             if (uploadCheck.status == 200) //이미지 저장 성공
+            await executeQuery("insert into product('product_title','product_price','product_img','product_content','product_date','product_location','product_category','member_id') VALUES(?,?,?,?,?,?,?,?)",[
+                title,price,uploadCheck.url,content,category,date,location,member_id
+            ])
                 return res.status(200).json({
-                    message: "성공"
-                   
+                    message: "성공"  
                 });
             
         }
