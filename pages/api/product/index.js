@@ -42,8 +42,8 @@ export default async function handler(req, res) {
             const uploadCheck = await uploadFile(fileBuffer, fileName, fileType);  //이미지 업로드에 관한 함수
             if (uploadCheck.status == 200) //이미지 저장 성공
                 return res.status(200).json({
-                    message: "성공",
-                    imgurl: uploadCheck.url
+                    message: "성공"
+                   
                 });
             
         }
