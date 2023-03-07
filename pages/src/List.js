@@ -60,7 +60,7 @@ function ListHead({ searchConAct , setSearchConAct }) {
 
     return (
         <div className={styles.listHeader}>
-            <button onClick={()=>router.push({pathname:'/'})}> 
+            <button onClick={()=>router.push({pathname:'/src/First'})}> 
                 <Image src="/images/back.png" alt="" width={25} height={25}/>
             </button>
             {
