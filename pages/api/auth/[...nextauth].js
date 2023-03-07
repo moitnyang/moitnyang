@@ -2,8 +2,7 @@ import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import GithubProvider from "next-auth/providers/github"
 import CredentialsProvider from "next-auth/providers/credentials"
-import connectMongo from '@/database/conn';
-import Users from "@/model/Schema";
+
 import { compare } from "bcryptjs";
 
 // const client_id = "337106084645-8nha4v8f3vg4fut11gjs9qhrp6nbumuk.apps.googleusercontent.com"
@@ -16,8 +15,8 @@ export default NextAuth({
   providers:[
     //Google Provider
     GoogleProvider({
-      clientId:process.env.GOOGLE_CLIENT_ID,
-      clientSecret:process.env.GOOGLE_SECRET
+      clientId: process.env.Google_ID,
+      clientSecret: process.env.Google_SECRET
     }),
     GithubProvider({
       clientId:process.env.GITHUB_ID,
@@ -29,10 +28,8 @@ export default NextAuth({
 
       async authorize(credentials, req){
 
-        connectMongo().catch( error => { error:"Connection Failed..." } )
-
         //check user existance
-        const result = await Users.findOne({ email:credentials.email })
+        const result = ({ email:credentials.email })
         if(!result){
           throw new Error("No user Found with Email Please Sign Up...")
         }
@@ -50,5 +47,5 @@ export default NextAuth({
       }
     })
   ],
-  // secret: process.env.SECRET,
+
 })

@@ -1,8 +1,8 @@
-import connectMongo from "@/database/conn";
+
 import { executeQuery } from "../db";
 
 export default async function handler(req, res){
-  connectMongo().catch(error => res.json({ error: "Connection Failed...!"}))
+
   const {body, method} = req;
 
   if(method === 'GET'){

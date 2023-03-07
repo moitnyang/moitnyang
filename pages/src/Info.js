@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 function Info() {
     const router = useRouter();
+    
     return (
         <>
             <div className={styles.infoHeader}>
@@ -11,7 +12,7 @@ function Info() {
                     <Image src="/images/back.png" alt="" width={25} height={25} />
                 </button>
                 <p>물건 상세정보</p>
-                <button onClick={() => router.push({ pathname: '/' })}>
+                <button onClick={() => router.push({ pathname: '/src/First' })}>
                     <Image src="/images/HOME.svg" alt="" width={35} height={35} className={styles.home} />
                 </button>
             </div>

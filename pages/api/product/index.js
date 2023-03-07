@@ -36,7 +36,16 @@ export default async function handler(req, res) {
             const title = req.body.title;
             const category = req.body.category;
             const content = req.body.content;
-            return res.status(200).json(content);
+            const fileBuffer = req.file.fileBuffer;
+            const fileName = req.body.name;
+            const fileType = req.file.mimetype;
+            const uploadCheck = await uploadFile(fileBuffer, fileName, fileType);  //이미지 업로드에 관한 함수
+            if (uploadCheck.status == 200) //이미지 저장 성공
+                return res.status(200).json({
+                    message: "성공"
+                   
+                });
+            
         }
         catch (error) {
             console.log(error);
