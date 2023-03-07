@@ -115,7 +115,7 @@ export default function Login() {
         </form>
         {/* bottom */}
         <div className="text-center text-gray-400 ">
-          don't have an account yet?
+          dont have an account yet?
           <Link href={"/src/Register"}>
             <div className="text-blue-700">Sign Up</div>
           </Link>
