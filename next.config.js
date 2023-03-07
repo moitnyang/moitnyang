@@ -3,7 +3,7 @@
 const path = require('path'); // 1. path 선언
 
 const nextConfig = {
-  basePath: "/{https://github.com/moitnyang/moitnyang.git}",
+ /*  basePath: "/{https://github.com/moitnyang/moitnyang.git}", */
   reactStrictMode: true,
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
