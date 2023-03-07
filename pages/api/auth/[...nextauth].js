@@ -26,7 +26,9 @@ export default NextAuth({
     //회원가입
     CredentialsProvider({
       name:"Credential",
+
       async authorize(credentials, req){
+
         connectMongo().catch( error => { error:"Connection Failed..." } )
 
         //check user existance
@@ -47,5 +49,6 @@ export default NextAuth({
 
       }
     })
-  ]
+  ],
+  // secret: process.env.SECRET,
 })

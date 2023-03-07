@@ -7,7 +7,7 @@ import { getSession, useSession, signOut } from "next-auth/react"
 import { redirect } from "next/dist/server/api-utils";
 
 export default function Home() {
-  const {data:session} = useSession();
+  const {data:session, status } = useSession();
 
   function handleSignOut(){
     signOut() /* 쿠키에서 모든 값을 자동으로 제거 */
