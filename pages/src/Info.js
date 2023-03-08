@@ -1,10 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '@/styles/info.module.scss';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import axios from 'axios';
 function Info() {
     const router = useRouter();
-    
+    const [comment,setComment] = useState();
+    const [commentList,setList] = useState();
+    const commentFn=async()=>{
+        await axios.post("/api/comment",{content : comment})
+    }
+
+    const getComment = async()=>{
+        await axios.get("/api/comment").then((res)=>setList(res.data)
+        )
+    }
+    useEffect(()=>{
+        getComment()
+    },[])
+     console.log(commentList); 
     return (
         <>
             <div className={styles.infoHeader}>
@@ -39,12 +53,21 @@ function Info() {
                 </div>
                 <div className={styles.commentBox}>
                     <div className={styles.inputBox}>
-                        <input type="text" />
-                        <button>댓글 달기</button>
+                        <input type="text" onChange={(e)=>setComment(e.target.value)}/>
+                        <button onClick={commentFn}>댓글 달기</button>
                     </div>
                     <div className={styles.commentContent}>
                         {/* comment 컴포넌트로 뿌려줌 */}
-                        <div>
+                        {commentList && commentList.map((obj)=>{
+                            return (
+                            <div key={obj.comment_no}>
+                                <div className={styles.commentInfo}>
+                                    <p>{obj.member_id}</p><p>{obj.comment_date}</p>
+                                </div>
+                                <p>{obj.comment_content}</p>
+                            </div>)
+                        })}
+                        {/* <div>
                             <div className={styles.commentInfo}>
                                 <p>abcd</p><p>2023.03.03 14:18</p>
                             </div>
@@ -61,7 +84,7 @@ function Info() {
                                 <p>네고안하면안삼</p><p>2023.03.03 14:28</p>
                             </div>
                             <p>직접 가면 네고 가능한가요?</p>
-                        </div>
+                        </div> */}
                         
                         
                     </div>

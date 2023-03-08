@@ -6,7 +6,6 @@ export const CategoryTranslate = createContext();
 
 export default function App({ Component, pageProps }) {
   const [category, setCategory] = useState('');
-
   const lists = [
     { id: 0, category: "homeAppliance", title: "노트북 팔아요", location: "신길동", price: "150만원", src: "/images/nop.png", likeThis: false, likeNum: 0 },
     { id: 1, category: "sport", title: "헬스장 회원권 팝니다!", location: "신길동", price: "45만원", src: "/images/nop.png", likeThis: false, likeNum: 0 },
@@ -19,11 +18,7 @@ export default function App({ Component, pageProps }) {
     { id: 8, category: "furniture", title: "책상팔아요", location: "신길동", price: "60만원", src: "/images/nop.png", likeThis: false, likeNum: 0 }
   ]
   const [items, setItems] = useState(lists);
-
   const [myItems, setMyItems] = useState([]);
-
-
-
   const action = useMemo(
     () => ({
       categoryTranslate(c) {
@@ -37,8 +32,7 @@ export default function App({ Component, pageProps }) {
         if (c == 'petSupplies') { return "반려동물용품" }
         if (c == 'sport') { return "스포츠" }
         if (c == 'likeItems') { return "찜목록" }
-        if (c == 'hotItems') { return "인기매물" }
-        
+        if (c == 'hotItems') { return "인기매물" }   
       }
     })
     , []);
