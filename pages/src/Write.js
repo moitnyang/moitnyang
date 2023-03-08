@@ -13,7 +13,12 @@ function Write() {
   const { categoryTranslate } = useContext(CategoryTranslate);
   const categoryList = ['baby', 'book', 'furniture', 'hobby', 'fashion', 'homeAppliance', 'householdGoods', 'petSupplies', 'sport'];
 
-
+  // 테스트 상품목록 뿌려주기 + 좋아요 목록 //
+  async function test (){
+    var t = await axios.get("/api/product");
+    console.log(t.data);
+  }
+  useEffect(()=>{test()},[])
 
   /////// Geolocation을 활용하여 위도,경도를 구하고 KAKAO_MAP_API를 이용하여 주소를 가져옴////////
   // function currentLocation() {
@@ -85,7 +90,7 @@ function Write() {
             'Content-Type': 'multipart/form-data'
           }
         }).then(res => {
-          console.log(res.data)   //확인
+          router.push("/src/First")  //확인
         });
       }
       catch (err) {
@@ -152,8 +157,7 @@ function Write() {
           <textarea placeholder='내용을 입력하세요.' onChange={(e) => setData({ ...data, content: e.target.value })} />
         </div>
       </div>
-      {/* <Image src="https://image-bucket-server.s3.ap-northeast-2.amazonaws.com/uploads/xmquioafp1678239886899sport.png" unoptimized={true} width={1000} height={100} /> 
-      이미지 DB에서 얻어오기 */}
+      
     </>
   )
 }

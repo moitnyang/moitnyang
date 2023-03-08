@@ -1,6 +1,7 @@
 import '@/styles/globals.css'
-import React, { useState, createContext, useMemo } from 'react';
+import React, { useState, createContext, useMemo, useEffect } from 'react';
 import { SessionProvider } from 'next-auth/react'
+import axios from 'axios';
 export const CategoryContext = createContext();
 export const CategoryTranslate = createContext();
 
@@ -37,10 +38,22 @@ export default function App({ Component, pageProps }) {
     })
     , []);
 
+    const [product,setProduct] = useState();
+
+    async function getProduct(){
+      const data = await axios("/api/product");
+      setProduct(data.data.data)
+    }
+
+    useEffect(()=>{
+      getProduct();
+    },[])
+
+
   return (
     <SessionProvider session={pageProps.session}>
       <CategoryTranslate.Provider value={action}>
-        <CategoryContext.Provider value={{ category, setCategory, items, setItems, myItems, setMyItems }}>
+        <CategoryContext.Provider value={{ category, setCategory, items, setItems, myItems, setMyItems, product }}>
           <Component {...pageProps} />
         </CategoryContext.Provider>
       </CategoryTranslate.Provider>
