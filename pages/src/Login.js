@@ -54,10 +54,10 @@ export default function Login() {
         <title>Login</title>
       </Head>
 
-      <section className="w-3/4 mx-auto flex flex-col gap-10">
+      <section className="w-4/5 h-4/5 mx-auto flex flex-col gap-5">
         <div className="title">
-          <h1 className="text-gray-800 text-4xl font-bold py-4">로그인</h1>
-          <p className="w-3/4 mx-auto text-gray-400">
+          <h1 className="text-gray-800  text-3xl md:text-4xl lg:text-4xl font-bold py-4">로그인</h1>
+          <p className="w-3/4 mx-auto text-gray-400 text-sm md:text-lg lg:text-lg">
             로그인 해달라냥
           </p>
         </div>
@@ -78,7 +78,7 @@ export default function Login() {
               {...formik.getFieldProps("id")}
             />
             <span className="icon flex items-center px-4">
-              <HiOutlineIdentification size={25} />
+              <HiOutlineIdentification size={23} />
             </span>
           </div>
           {/* {formik.errors.email && formik.touched.email ?<span className="text-red-500">{formik.errors.email}</span>:<></>} */}
@@ -93,7 +93,7 @@ export default function Login() {
             <span className="icon flex items-center px-4"
               onClick={() => setShow(!show)}
             >
-              <HiLockClosed size={25}/>
+              <HiLockClosed size={23} />
             </span>
           </div>
             {/* {formik.errors.password && formik.touched.password ?<span className="text-red-500">{formik.errors.password}</span>:<></>} */}
@@ -118,10 +118,10 @@ export default function Login() {
           </div>
         </form>
         {/* bottom */}
-        <div className="text-center text-gray-400 text-sm md:text-base">
+        <div className="text-center text-gray-400 text-sm md:text-base lg:text-base">
           dont have an account yet?{" "}
           <Link href={"/src/Register"}>
-            <div className="text-blue-700 text-sm md:text-base">Sign Up</div>
+            <div className="text-blue-700 text-sm md:text-base lg:text-base">Sign Up</div>
           </Link>
         </div>
       </section>

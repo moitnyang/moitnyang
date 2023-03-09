@@ -53,7 +53,7 @@ export default function Register() {
         <title>Register</title>
       </Head>
 
-      <section className="w-3/4 mx-auto flex flex-col gap-10">
+      <section className="w-3/4 mx-auto flex flex-col gap-5">
         <div className="title">
           <h1 className="text-gray-800 md:text-4xl text-3xl font-bold py-4">회원가입</h1>
           <p className="w-3/4 mx-auto text-gray-400 text-sm md:text-lg">
@@ -77,7 +77,7 @@ export default function Register() {
               {...formik.getFieldProps("id")}
             />
             <span className="icon flex items-center px-4">
-              <HiOutlineIdentification size={25} />
+              <HiOutlineIdentification size={23} />
             </span>
           </div>
           {/* {formik.errors.email && formik.touched.email ?<span className="text-red-500">{formik.errors.email}</span>:<></>} */}
@@ -99,7 +99,7 @@ export default function Register() {
               className="icon flex items-center px-4"
               onClick={() => setShow({ ...show, password: !show.password })}
             >
-              <HiLockClosed size={25} />
+              <HiLockClosed size={23} />
             </span>
           </div>
           {/* {formik.errors.password && formik.touched.password ?<span className="text-red-500">{formik.errors.password}</span>:<></>} */}
@@ -119,7 +119,7 @@ export default function Register() {
               {...formik.getFieldProps("username")}
             />
             <span className="icon flex items-center px-4">
-              <HiOutlineUser size={25} />
+              <HiOutlineUser size={23} />
             </span>
           </div>
           {/* {formik.errors.username && formik.touched.username ?<span className="text-red-500">{formik.errors.username}</span>:<></>} */}
@@ -141,7 +141,7 @@ export default function Register() {
               className="icon flex items-center px-4"
               onClick={() => setShow({ ...show, cpassword: !show.cpassword })}
             >
-              <HiPhone size={25} />
+              <HiPhone size={23} />
             </span>
           </div>
           {/* {formik.errors.cpassword && formik.touched.cpassword ?<span className="text-red-500">{formik.errors.cpassword}</span>:<></>} */}
@@ -154,10 +154,10 @@ export default function Register() {
           </div>
         </form>
         {/* bottom */}
-        <div className="text-center text-gray-400 ">
+        <div className="text-center text-gray-400 text-sm md:text-base lg:text-base">
           Have an account?{" "}
           <Link href={"/src/Login"}>
-            <div className="text-blue-700">Sign In</div>
+            <div className="text-blue-700 text-sm md:text-base lg:text-base">Sign In</div>
           </Link>
         </div>
       </section>
