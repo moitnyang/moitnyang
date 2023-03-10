@@ -32,10 +32,10 @@ export async function uploadFile(fileBuffer, fileName, mimetype) {
   // s3 저장 위치에 접근
   const command = new GetObjectCommand(uploadParams);
   // s3에 bucket에 이미지정보를 보내서 저장하고 성공,실패값을 받아옴
-  //const res = await s3.send(new PutObjectCommand(uploadParams));
+  const res = await s3.send(new PutObjectCommand(uploadParams));
   // 저장 위치의 url을 받아옴
   var url = await getSignedUrl(s3, command, { expiresIn: 3600 })
-
+  //res.$metadata.httpStatusCode
   return {status:res.$metadata.httpStatusCode, url:url.split("?")[0]};
 }
 

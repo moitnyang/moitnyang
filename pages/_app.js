@@ -1,12 +1,12 @@
 import '@/styles/globals.css'
-import React, { useState, createContext, useMemo } from 'react';
+import React, { useState, createContext, useMemo, useEffect } from 'react';
 import { SessionProvider } from 'next-auth/react'
+import axios from 'axios';
 export const CategoryContext = createContext();
 export const CategoryTranslate = createContext();
 
 export default function App({ Component, pageProps }) {
   const [category, setCategory] = useState('');
-
   const lists = [
     { id: 0, category: "homeAppliance", title: "노트북 팔아요", location: "신길동", price: "150만원", src: "/images/nop.png", likeThis: false, likeNum: 0 },
     { id: 1, category: "sport", title: "헬스장 회원권 팝니다!", location: "신길동", price: "45만원", src: "/images/nop.png", likeThis: false, likeNum: 0 },
@@ -19,11 +19,7 @@ export default function App({ Component, pageProps }) {
     { id: 8, category: "furniture", title: "책상팔아요", location: "신길동", price: "60만원", src: "/images/nop.png", likeThis: false, likeNum: 0 }
   ]
   const [items, setItems] = useState(lists);
-
   const [myItems, setMyItems] = useState([]);
-
-
-
   const action = useMemo(
     () => ({
       categoryTranslate(c) {
@@ -37,16 +33,27 @@ export default function App({ Component, pageProps }) {
         if (c == 'petSupplies') { return "반려동물용품" }
         if (c == 'sport') { return "스포츠" }
         if (c == 'likeItems') { return "찜목록" }
-        if (c == 'hotItems') { return "인기매물" }
-        
+        if (c == 'hotItems') { return "인기매물" }   
       }
     })
     , []);
 
+    const [product,setProduct] = useState();
+
+    async function getProduct(){
+      const data = await axios("/api/product");
+      setProduct(data.data.data)
+    }
+
+    useEffect(()=>{
+      getProduct();
+    },[])
+
+
   return (
     <SessionProvider session={pageProps.session}>
       <CategoryTranslate.Provider value={action}>
-        <CategoryContext.Provider value={{ category, setCategory, items, setItems, myItems, setMyItems }}>
+        <CategoryContext.Provider value={{ category, setCategory, items, setItems, myItems, setMyItems, product }}>
           <Component {...pageProps} />
         </CategoryContext.Provider>
       </CategoryTranslate.Provider>
