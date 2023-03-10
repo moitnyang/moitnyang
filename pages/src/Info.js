@@ -14,23 +14,17 @@ function Info() {
     // 댓글 쓰기
     const commentFn = async () => {
         await axios.post("/api/comment", { content: comment })
-        getComment();
+        
     }
-    // 해당하는 상품의 댓글
-    const getComment = async () => {
-       /*  await axios.get("/api/comment").then((res)=>setList(res.data)) */
-        /* setList(data.data); */
-    }
-    // 상품 정보
+    // 상품 정보 해당하는 상품의 댓글
     const getProduct = async () => {
-        await axios.get(`/api/product/${router.query.id}`).then((res) =>
-            setProduct(res.data))
+        await axios.get(`/api/product/${router.query.no}`).then((res) =>setProduct(res.data)).then(err => console.log(err));
+        await axios.get("/api/comment/").then((res)=>setList(res.data));
     }
     useEffect(() => {
-        
         getProduct();
-        getComment();
     }, [])
+ 
     return (
         <>
             <div className={styles.infoHeader}>
@@ -46,8 +40,8 @@ function Info() {
                 {
                     product && product.map((obj) => {
                         return (
-                            <>
-                                <div className={styles.imgBox} key = {obj.product_no}>
+                            <div key = {obj.product_no}>
+                                <div className={styles.imgBox} >
                                     <figure>
                                         <Image src={obj.product_img} width={100} height={100} layout="responsive" unoptimized={true} alt='' />
                                     </figure>
@@ -63,11 +57,11 @@ function Info() {
                                     <div>
                                         <p>{obj.product_title}</p> {/* 제목 , 카테고리 , 가격 , 내용*/}
                                         <p onClick={() => router.push({ pathname: '/src/List' })}>{obj.product_category}</p>
-                                        <p>{obj.product_price}원</p>
+                                        <p>{Number(obj.product_price).toLocaleString('kr-KR')}원</p> 
                                         <p>{obj.product_content}</p>
                                     </div>
                                 </div>
-                            </>
+                            </div>
                         )
                     })
                 }
