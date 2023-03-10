@@ -12,7 +12,7 @@ export default async function handler(req, res){
   }
   // only post method is accepted
   if(method === 'POST'){
-    await executeQuery('insert into member (name,password,email) values (?,?,?) ',[body.username, body.password, body.email]);
+    await executeQuery('insert into member (id,username,password,phone) values (?,?,?,?) ',[body.id, body.password, body.username,  body.phone]);
     res.send('회원가입 완료!!!')
   } else{
       res.status(500).json({ message: "HTTP method not valid only POST Accepted"})

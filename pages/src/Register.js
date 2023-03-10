@@ -24,12 +24,12 @@ export default function Register() {
   });
 
   async function onSubmit(values) {
-    
+      console.log('sdsdfs')
     const response = await fetch('http://localhost:3000/api/auth/signup', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(values)
-        });
+        }).then((res)=>console.log(res));
 
     // try {
     //   const response = await fetch('http://localhost:3000/api/auth/signup', {
@@ -55,8 +55,8 @@ export default function Register() {
 
       <section className="w-3/4 mx-auto flex flex-col gap-5">
         <div className="title">
-          <h1 className="text-gray-800 md:text-4xl text-3xl font-bold py-4">회원가입</h1>
-          <p className="w-3/4 mx-auto text-gray-400 text-sm md:text-lg">
+          <h1 className="text-gray-800 text-3xl md:text-4xl lg:text-4xl font-bold py-4">회원가입</h1>
+          <p className="w-3/4 mx-auto text-gray-400 text-sm md:text-lg lg:text-lg">
             회원가입하라냥
           </p>
         </div>

@@ -17,7 +17,7 @@ export default function Login() {
   //formik hook
   const formik = useFormik({
       initialValues:{
-        email: "",
+        id: "",
         password:""
       },
       validate:login_validate, /* 유효성 검사 컴포넌트*/
@@ -28,7 +28,7 @@ export default function Login() {
     async function onSubmit (values){
       const status = await signIn("credentials",{
         redirect:false,
-        email:values.email,
+        id:values.id,
         password:values.password,
         callbackUrl:"/"
       })

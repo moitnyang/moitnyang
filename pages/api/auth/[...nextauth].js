@@ -29,19 +29,20 @@ export default NextAuth({
       async authorize(credentials, req){
 
         //check user existance
-        const result = ({ email:credentials.email })
+        const result = ({ id:credentials.id })
         if(!result){
-          throw new Error("No user Found with Email Please Sign Up...")
+          throw new Error("No user Found with Id Please Sign Up...")
         }
 
         //compare()
         const checkPassword = await compare(credentials.password, result.password);
 
         //incorrect password
-        if(!checkPassword || result.email !== credentials.email ){
+        if(!checkPassword || result.id !== credentials.id ){
           throw new Error("Username or Password doesn't match")
         }
 
+        console.log(result)
         return result;
 
       }
