@@ -39,23 +39,29 @@ export default async function handler(req, res) {
             const price = req.body.price;
             const content = req.body.content;
             const category = req.body.category;
-            const date = new Date().getTime();
-            const location = "논현동";  // 위치
+            const dong = req.body.dong;
+            const lat = req.body.lat;
+            const lng = req.body.lng;
             const member_id = "hoon"  // id
-            //console.log(req.file.buffer,fileName,fileType)
+            // 년 월 일
+            const now = new Date()
+            const year = now.getFullYear();
+            const month = now.getMonth() + 1;
+            const day = now.getDate();
+            const date = `${year}.${month}.${day}`
+           
             const uploadCheck = await uploadFile(fileBuffer, fileName, fileType);  //이미지 업로드에 관한 함수
             if (uploadCheck.status == 200) { //이미지 저장 성공
-                //이미지 저장 성공시 DB에 저장
-                await executeQuery("INSERT INTO product( `product_title`, `product_price`, `product_img`, `product_content`, `product_date`, `product_location`, `product_category`, `member_id`) VALUES (?,?,?,?,?,?,?,?)",
-                    [title, price, uploadCheck.url, content, category, date, location, member_id]).then(res => {
+                //이미지 저장 성공시 DB에 저장INSERT INTO `product`(`product_no`, `product_title`, `product_price`, `product_img`, `product_content`, `product_date`, `product_lng`, `product_category`, `likenum`, `member_id`, `product_dong`, `product_lat`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]','[value-9]','[value-10]','[value-11]','[value-12]')
+                await executeQuery("INSERT INTO product( product_title, product_price, product_img, product_content, product_date, product_lng, product_category, member_id, product_dong, product_lat) VALUES (?,?,?,?,?,?,?,?,?,?)",
+                    [title, price, uploadCheck.url, content, date, lng, category, member_id, dong, lat]).then(res => {
                         console.log("저장");
                     })
-                /* await executeQuery("insert into member values(?,?,?,?)",["hoon1","1234","테스트","000000"]) */
                 return res.status(200).json({
                     message: "성공"
                 });
             }
-            else{
+            else {
                 return res.send("이미지를 저장하지 못했습니다.")
             }
         }
@@ -64,23 +70,26 @@ export default async function handler(req, res) {
             return res.send(error)
         }
     }
-   
-    const selectProduct = async()=>{
+
+    const selectProduct = async () => {
         const id = "hoon"
         // 전체 상품 불러오기
-        var data = await executeQuery("select * from product",[]);
+        var data = await executeQuery("SELECT * FROM product ", []);
         // 좋아요한 상품 불러오기 member_id 를 갖고와야함
-        var likeData = await executeQuery("SELECT * from product WHERE product_no IN (SELECT product_no FROM `product_like` WHERE member_id = 'hoon')",[])
+        var likeData = await executeQuery("SELECT * FROM product WHERE product_no IN (SELECT product_no FROM product_like WHERE member_id = 'hoon')", [])
+        // 좋아요 랭크순 상품 불러오기
+        var rankData = await executeQuery("SELECT * FROM product ORDER BY likenum DESC LIMIT 5");
         return res.status(200).json({
             data,
-            likeData
+            likeData,
+            rankData
         });
     }
     switch (method) {
-        case "POST": insertProduct(); break; //상품작성 
-        case "GET": selectProduct(); break;  //상품불러오기
+        case "POST": await insertProduct(); break; //상품작성 
+        case "GET": await selectProduct(); break;  //상품불러오기
 
 
     }
- /*    res.status(200).json({ name: 'John Doe' }) */
+    /*    res.status(200).json({ name: 'John Doe' }) */
 }

@@ -4,6 +4,7 @@ import Link from "next/link";
 import Head from "next/head";
 import { getSession, useSession, signOut } from "next-auth/react"
 import Loading from './Loading';
+import Login from './src/Login';
 
 export default function Home() {
   const [load, setLoad] = useState(true);
@@ -29,7 +30,7 @@ export default function Home() {
         <Head>
           <title>Home Page</title>
         </Head>
-        {load ? <Loading /> : session ? User({ session, handleSignOut }) : Guest()}
+        {load ? <Loading /> : session ? User({ session, handleSignOut }) :<Login />}
 
       </div>
     </>

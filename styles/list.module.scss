@@ -75,6 +75,8 @@
             width: 60px;
             height: 20px;
             display: flex;
+            z-index: 999;
+            cursor: pointer;
             flex-direction:row;
             align-items: center;
             justify-content: space-around;

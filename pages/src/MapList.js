@@ -44,7 +44,36 @@ function MapList() {
         }
     }, [latitude, longitude]);
 
+// //내 위치
+// const centerLat = 37.5665;
+// const centerLng = 126.9780;
 
+// // 데이터베이스에서 가져온 위치 정보 (위도, 경도) 배열
+// const locations = [
+//     // db 에서 가져온 자료 객체 들어갈 자리
+// ];
+
+// 거리 계산 함수 (두 지점 사이의 거리를 km 단위로 반환)
+// function calcDistance(lat1, lng1, lat2, lng2) {
+//   const R = 6371; // 지구 반경 (km)
+//   const dLat = (lat2 - lat1) * Math.PI / 180;
+//   const dLng = (lng2 - lng1) * Math.PI / 180;
+//   const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+//     Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+//     Math.sin(dLng / 2) * Math.sin(dLng / 2);
+//   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+//   const d = R * c; // 두 지점 사이의 거리 (km)
+//   return parseFloat(d.toFixed(2)); // 소수점 아래 2자리까지만 포함
+// }
+
+// // 거리가 10km 이내인 위치 필터링
+// const nearbyLocations = locations.map(location => {
+//   const distance = calcDistance(centerLat, centerLng, location.lat, location.lng);
+//   return { ...location, distance }; // 객체 병합을 통해 거리 정보를 추가
+// }).filter(location => location.distance <= 10);
+
+// // 결과 출력
+// console.log(nearbyLocations);
     return (
         <>
             <div className={styles.listHeader}>
