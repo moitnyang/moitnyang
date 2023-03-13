@@ -9,7 +9,7 @@ import { CategoryTranslate } from '../_app';
 
 
 function List() {
-    const { items, category, myItems, product } = useContext(CategoryContext);
+    const { items, category, myItems } = useContext(CategoryContext);
     const [searchConAct, setSearchConAct] = useState(false);
     
     //좋아요 개수 많은 상위 5개 정렬해서 인기매물 목록으로 만들기
@@ -38,20 +38,12 @@ function List() {
                 </>)
             }
             <ul className={styles.itemList}>
-               {/*  {
+                {
                     category != "likeItems" ?
                     ( category != "hotItems"
                     ? items.filter( item => item.category ==category).map((item, idx)=>{ return <Item key={idx} item={item}/> }) 
                     : hotItemListMake ) : myItemsListMake
-
-                } */}
-
-                {
-                    product && product.map((obj)=>{
-                        return <Item key={obj.product_no} item={obj}/>
-                    })
                 }
-
             </ul>
         </>
     )
@@ -115,18 +107,17 @@ function Item({item}) {
     }
 
     return (
-        
-        <li loading="lazy" onClick={()=>router.push({pathname:'/src/Info',query:{id:item.product_no}})}>
-            <Image src={item.product_img} unoptimized={true} alt="" width={80} height={80}/>
+        <li loading="lazy" onClick={()=>router.push({pathname:'/src/Info'})}>
+            <Image src={item.src} alt="" width={80} height={80}/>
             <div>
-                <p>{item.product_title}</p>
-                <p>{item.product_location}</p>
-                <p>{item.product_price}</p>
+                <p>{item.title}</p>
+                <p>{item.location}</p>
+                <p>{item.price}</p>
             </div>
-            {/* <div className={styles.likeItem} onClick={()=>{ likeClick(item.id) }}>
+            <div className={styles.likeItem} onClick={()=>{ likeClick(item.id) }}>
                 <Image src={item.likeThis ? "/images/like2.png" : "/images/like.png"}  alt="" width={20} height={20} className={styles.searchBtn}/>
                 <p>{item.likeNum}</p>
-            </div> */}
+            </div>
         </li>
     )
 }

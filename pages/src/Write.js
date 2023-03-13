@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import axios from 'axios';
@@ -13,42 +13,11 @@ function Write() {
   const { categoryTranslate } = useContext(CategoryTranslate);
   const categoryList = ['baby', 'book', 'furniture', 'hobby', 'fashion', 'homeAppliance', 'householdGoods', 'petSupplies', 'sport'];
 
-  // 테스트 상품목록 뿌려주기 + 좋아요 목록 //
-  async function test (){
-    var t = await axios.get("/api/product");
-    console.log(t.data);
-  }
-  useEffect(()=>{test()},[])
-
-  /////// Geolocation을 활용하여 위도,경도를 구하고 KAKAO_MAP_API를 이용하여 주소를 가져옴////////
-  // function currentLocation() {
-  //   // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
-  //   if (navigator.geolocation) {
-  //     // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-  //     navigator.geolocation.getCurrentPosition(function (position) {
-  //       var lat = position.coords.latitude // 위도
-  //       var lon = position.coords.longitude; // 경도
-  //       console.log(lat, lon)
-  //       window.kakao.maps.load(() => {
-  //         var geocoder = new kakao.maps.services.Geocoder();
-  //         var coord = new kakao.maps.LatLng(lat, lon);
-  //         var callback = function (result, status) {
-  //           if (status === kakao.maps.services.Status.OK) {
-  //             console.log(result[0].road_address);
-  //           }
-  //         };
-  //         geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
-  //       })
-  //     })
-  //   } else {
-  //     alert('현재위치를 가져올수 없습니다.')
-  //   }
-  // }
-  // useEffect(() => {
-  //   currentLocation();
-  // }, [])
 
   const uploadToClient = (e) => {
+    axios.get("/api").then(res=>{
+      console.log(res.data);
+    })
     if (e.target.files && e.target.files[0]) {
       const i = e.target.files[0];
       if (i.size > 500000) { //500kb 제한
@@ -58,6 +27,7 @@ function Write() {
         setImage(i);
         encodeFileToBase64(i);
       }
+
     }
   }
   //업로드 사진 로직
@@ -72,25 +42,23 @@ function Write() {
     });
   };
   //글 올리기
-  const write = async () => {
+  const write = async() => {
     if (image && data.title && data.category && data.content && data.category != "n") {
       const body = new FormData();
       // db에 저장될 정보를  FormData에 담아서 api로 전달
       const fileName = "uploads/" + Math.random().toString(36).substring(2, 11) + new Date().getTime() + image.name;
-      console.log(image)
       body.append("image", image);
       body.append("name", fileName);
       body.append("title", data.title)
       body.append("category", data.category)
-      body.append("price", data.price)
       body.append("content", data.content)
       try {
         await axios.post('/api/product', body, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
-        }).then(res => {
-          router.push("/src/First")  //확인
+        }).then(res=>{
+          console.log(res.data)   //확인
         });
       }
       catch (err) {
@@ -102,18 +70,18 @@ function Write() {
     }
   }
   // 가격 정규식
-  const priceCk = (e) => {
+  const priceCk=(e)=>{
     var price = e.target.value; //받은 값
     let check = /^[0-9]+$/;  // 숫자만 추출하는 정규식
-    if (!check.test(price)) {
+    if(!check.test(price)){
       alert("숫자만 입력 가능합니다.")
-      e.target.value = ""
-    } else {
+      e.target.value=""
+    }else{
       setData({ ...data, price: e.target.value })
     }
 
   }
-
+  
   return (
     <>
       <div className={styles.writeHeader}>
@@ -126,9 +94,9 @@ function Write() {
       <div className={styles.writeContainer}>
         <div className={styles.fileBox}>
           <label htmlFor="file" className={imageSrc && styles.imagelabel}>
-            {imageSrc != false ? <img src={imageSrc} alt="preview-img" /> :
-              <img src="/images/camera.png" alt="" />}</label>
-          <input type="file" id="file" name='image' onChange={uploadToClient} />
+            {imageSrc != false ? <img src={imageSrc} alt="preview-img"  /> :
+              <img src="/images/camera.png" alt=""/>}</label>
+          <input type="file" id="file" onChange={uploadToClient} />
           {/*  <div className={styles.preview}>
             {imageSrc && <img src={imageSrc} alt="preview-img" />}
           </div> */}
@@ -157,7 +125,6 @@ function Write() {
           <textarea placeholder='내용을 입력하세요.' onChange={(e) => setData({ ...data, content: e.target.value })} />
         </div>
       </div>
-      
     </>
   )
 }

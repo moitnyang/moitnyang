@@ -30,9 +30,3 @@ yarn-error.log*
 
 # vercel
 .vercel
-
-localStorage.setItem("logined",1);
-
-localStorage.removeItem("logined");
-
-localStorage.getItem("logined") === 1;
