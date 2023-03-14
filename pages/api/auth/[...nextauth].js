@@ -39,22 +39,22 @@ export default NextAuth({
           .then((res) => res.json())
           .then((users) => (result = users));
 
-        if (!result) {
-          throw new Error("No user Found with Id Please Sign Up...");
-        }
+          if (!result) {
+            throw new Error("No user Found with Id Please Sign Up...");
+          }
 
         //compare()
         // const checkPassword = await compare(credentials.password, result.password);
 
         //incorrect password
         if (
-          result[0].password !== credentials.password ||
-          result[0].id !== credentials.id
+          result[0].member_id !== credentials.id ||
+          result[0].member_pass !== credentials.password           
         ) {
           throw new Error("Username or Password doesn't match");
         }
 
-        // console.log(result)
+
         return result;
       },
     }),
