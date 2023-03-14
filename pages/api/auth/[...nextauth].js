@@ -1,7 +1,7 @@
-import NextAuth from "next-auth"
-import GoogleProvider from "next-auth/providers/google"
-import GithubProvider from "next-auth/providers/github"
-import CredentialsProvider from "next-auth/providers/credentials"
+import NextAuth from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import GithubProvider from "next-auth/providers/github";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 import { compare } from "bcryptjs";
 
@@ -12,40 +12,51 @@ import { compare } from "bcryptjs";
 // GITHUB_SECRET = 8c5b8c8b200ab2c522f2253893f55a9153a2490c
 
 export default NextAuth({
-  providers:[
+  providers: [
     //Google Provider
     GoogleProvider({
       clientId: process.env.Google_ID,
-      clientSecret: process.env.Google_SECRET
+      clientSecret: process.env.Google_SECRET,
     }),
+
+    //Github Provider
     GithubProvider({
-      clientId:process.env.GITHUB_ID,
-      clientSecret:process.env.GITHUB_SECRET
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
     }),
-    //회원가입
+
+
+    //로그인
     CredentialsProvider({
-      name:"Credential",
+      name: "Credential", //로그인 페이지에서 양식을 생성하는 데 사용.
+      // credentials : { id:credentials.id, password:credentials.password },
+      async authorize(credentials, req) {
+        let result;
+        await fetch(
+          `http://localhost:3000/api/auth/signup?password=${credentials.password}&id=${credentials.id}`,
+          { headers: { "Content-Type": "application/json" } }
+        )
+          .then((res) => res.json())
+          .then((users) => (result = users));
 
-      async authorize(credentials, req){
-
-        //check user existance
-        const result = ({ email:credentials.email })
-        if(!result){
-          throw new Error("No user Found with Email Please Sign Up...")
-        }
+          if (!result) {
+            throw new Error("No user Found with Id Please Sign Up...");
+          }
 
         //compare()
-        const checkPassword = await compare(credentials.password, result.password);
+        // const checkPassword = await compare(credentials.password, result.password);
 
         //incorrect password
-        if(!checkPassword || result.email !== credentials.email ){
-          throw new Error("Username or Password doesn't match")
+        if (
+          result[0].member_id !== credentials.id ||
+          result[0].member_pass !== credentials.password           
+        ) {
+          throw new Error("Username or Password doesn't match");
         }
 
+
         return result;
-
-      }
-    })
+      },
+    }),
   ],
-
-})
+});

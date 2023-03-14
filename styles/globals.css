@@ -19,7 +19,6 @@ body {
 
 body{
   max-width: 767px;
-  padding: 0 10px;
   background-color: white;
   border-left: 1px solid black;
   border-right: 1px solid black;
@@ -32,12 +31,3 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
-
-.marker{
-  padding: 10px;
-}
