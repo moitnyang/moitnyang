@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  background-color: black;
+  color: rgb(71, 71, 71);
+}
+
+body{
+  max-width: 767px;
+  padding: 0 10px;
+  background-color: white;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+
+.marker{
+  padding: 10px;
+}

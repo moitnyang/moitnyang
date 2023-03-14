@@ -1,0 +1,180 @@
+@font-face {
+    font-family: 'Cafe24Ssurround';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Dovemayo_gothic';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.1/Dovemayo_gothic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.writeHeader {
+    display: flex;
+    align-items: center;
+    height: 70px;
+    position: relative;
+    padding: 0 5px;
+    font-family: 'Cafe24Ssurround';
+    border-bottom: 1px solid rgb(157, 157, 157);
+
+    p {
+        margin-left: 5px;
+        color: rgb(130, 130, 130);
+        font-size: 18px;
+    }
+
+    button {
+        background-color: white;
+        border: none;
+        margin: 0;
+        cursor: pointer;
+    }
+
+    >.submitBtn {
+        position: absolute;
+        font-family: 'Cafe24Ssurround';
+        top: 50%;
+        right: 15px;
+        transform: translateY(-60%);
+        color: rgb(130, 130, 130);
+        cursor: pointer;
+    }
+}
+
+.writeContainer {
+    .fileBox {
+        /*  height: 300px; */
+        position: relative;
+        border-bottom: 1px solid rgb(157, 157, 157);
+
+        input[type="file"] {
+            position: absolute;
+            width: 0;
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+            border: 0;
+        }
+
+        >p {
+            margin: 0 25px 10px;
+            font-size: 12px;
+        }
+
+        >.imagelabel {
+            min-height: 0;
+
+            >img {
+                width: 100%;
+                max-height: 500px;
+            }
+        }
+
+        label {
+            /* margin: 100px 25px;
+            left: 0;
+            bottom: 25%;
+            display: block;
+            cursor: pointer;
+ */
+            margin: 25px 25px;
+            display: block;
+            cursor: pointer;
+            min-height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #eee;
+
+            >img {
+                width: 150px;
+                max-height: 500px;
+            }
+        }
+
+        >.preview {
+            position: absolute;
+            bottom: 25%;
+            left: 30%;
+
+            >img {
+                height: 150px;
+                width: 150px;
+
+            }
+
+        }
+    }
+}
+
+.writeTextBox {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Dovemayo_gothic';
+
+
+    input[type="text"] {
+        all: unset;
+        border-bottom: 1px solid rgb(157, 157, 157);
+        padding: 20px 25px;
+
+    }
+
+    >textarea {
+        all: unset;
+        padding: 20px 25px;
+    }
+
+    >.priceBox {
+        display: flex;
+        border-bottom: 1px solid rgb(157, 157, 157);
+        padding: 20px 25px;
+
+        >input[type="text"] {
+            padding: 0;
+            border-bottom: 0px
+        }
+
+        >p {
+            margin-right: 5px;
+        }
+
+    }
+
+    .categoryBox {
+        border-bottom: 1px solid rgb(157, 157, 157);
+        padding: 20px 25px;
+
+        >div {
+            cursor: pointer;
+            width: 120px;
+            position: relative;
+
+            select {
+                all: unset;
+                width: 120px;
+                position: relative;
+            }
+
+            &::before {
+                content: "";
+                display: block;
+                position: absolute;
+                top: -50%;
+                right: 0px;
+                width: 20px;
+                height: 20px;
+                background-image: url("../public/images/selectbtn.png");
+                background-repeat: no-repeat;
+                background-size: cover;
+                transform: translateY(10%);
+
+            }
+        }
+    }
+}
