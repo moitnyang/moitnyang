@@ -4,51 +4,28 @@ import Image from 'next/image';
 import styles from '@/styles/list.module.scss';
 import { CategoryContext } from '../_app';
 import { CategoryTranslate } from '../_app';
-
+import { useSession } from "next-auth/react"
 
 
 function List() {
-    const { category, setCategory, product, rank, likeCheck, nearProduct, searchFn, searchItems, search, setSearch } = useContext(CategoryContext);
+    const { getProduct, setCategory, product, rank, likeCheck, nearProduct, searchFn, searchItems, search, setSearch } = useContext(CategoryContext);
     const [searchConAct, setSearchConAct] = useState(false);
     const { categoryTranslate } = useContext(CategoryTranslate);
+    const { data: session, status } = useSession();
+    const router = useRouter();
     const [check, setCheck] = useState(true); // 좋아요 체크시 랜더링 다시 시작
+    // 새로고침시 다시 데이터 받아옴
+    useEffect(() => {
+        getProduct(session?.user.email);
+    }, [])
+    // 검색 새로고침시 다시 데이터 받아옴
+    useEffect(() => {
+        searchFn(router.query.search);
+        getProduct(session?.user.email);
+    }, [router.query.search])
     // 좋아요 표시..
     useEffect(() => {
-        product && product.map((obj) => (
-            likeCheck && likeCheck.map((oobj) => {
-                if (obj.product_no == oobj.product_no) {
-                    obj.like = true
-                }
-            }))
-        )
-        likeCheck && likeCheck.map((obj) => (
-            likeCheck && likeCheck.map((oobj) => {
-                if (obj.product_no == oobj.product_no) {
-                    obj.like = true
-                }
-            }))
-        )
-        rank && rank.map((obj) => (
-            likeCheck && likeCheck.map((oobj) => {
-                if (obj.product_no == oobj.product_no) {
-                    obj.like = true;
-                }
-            }))
-        )
-        nearProduct && nearProduct.map((obj) => (
-            likeCheck && likeCheck.map((oobj) => {
-                if (obj.product_no == oobj.product_no) {
-                    obj.like = true;
-                }
-            }))
-        )
-        searchItems && searchItems.map((obj) => (
-            likeCheck && likeCheck.map((oobj) => {
-                if (obj.product_no == oobj.product_no) {
-                    obj.like = true;
-                }
-            }))
-        )
+        searchFn(router.query.search)
         setCheck(!check);
     }, [likeCheck])
 
@@ -61,7 +38,7 @@ function List() {
     const nearItemMake = nearProduct && nearProduct.map((item, idx) => { return <Item key={idx} item={item} /> })
     //검색 결과
     const searchItemsMake = searchItems && searchItems.map((item, idx) => { return <Item key={idx} item={item} /> })
-    
+
     return (
         <>
             {searchConAct == false
@@ -78,12 +55,12 @@ function List() {
             }
             <ul className={styles.itemList}>
                 {
-                    category == "searchItems" ? searchItemsMake :
-                    category != "likeItems" ?
-                        (category != "hotItems" ?
-                            (category != "nearItems" ?
-                                product && product.filter(item => item.product_category ==categoryTranslate(category) ).map((item, idx) => { return <Item key={idx} item={item} /> }) :
-                                nearItemMake) : hotItemListMake) : myItemsListMake
+                    router.query.category == "searchItems" ? searchItemsMake :
+                        router.query.category != "likeItems" ?
+                            (router.query.category != "hotItems" ?
+                                (router.query.category != "nearItems" ?
+                                    product && product.filter(item => item.product_category == categoryTranslate(router.query.category)).map((item, idx) => { return <Item key={idx} item={item} /> }) :
+                                    nearItemMake) : hotItemListMake) : myItemsListMake
 
                 }
 
@@ -107,9 +84,9 @@ function ListHead({ searchConAct, setSearchConAct }) {
                 <Image src="/images/back.png" alt="" width={25} height={25} />
             </button>
             {
-                category != "searchItems" ?? category != "likeItems" ?? category != "hotItems" ?? category != "nearItem" ?? <Image src={`/images/menu/${category}.png`} alt="" width={65} height={65} />
+                router.query.category != "searchItems" ?? router.query.category != "likeItems" ?? router.query.category != "hotItems" ?? router.query.category != "nearItems" ?? <Image src={`/images/menu/${router.query.category}.png`} alt="" width={65} height={65} />
             }
-            <p> {categoryTranslate(category)} </p>
+            <p> {categoryTranslate(router.query.category)} </p>
             <button onClick={() => router.push({ pathname: '/src/Write' })} className={styles.writeBtn}>
                 <Image src="/images/icWrite.png" alt="" width={35} height={31} />
             </button>
@@ -123,12 +100,11 @@ function ListHead({ searchConAct, setSearchConAct }) {
 function Item({ item }) {
     const { updataLike } = useContext(CategoryContext);
     const router = useRouter();
-
+    const { data: session, status } = useSession();
     // 상품정보로 이동
     const infoMove = (e, no) => {
         if (e.target.className != "list_searchBtn___E6C7") {
-
-            router.push({ pathname: '/src/Info', query: { no: item.product_no } })
+            router.push({ pathname: '/src/Info', query: { no: item.product_no, category: router.query.category } })
         }
 
     }
@@ -166,7 +142,7 @@ function Item({ item }) {
                 <p>{item.product_dong}·{item.product_date}</p>
                 <p>{Number(item.product_price).toLocaleString('kr-KR')}원</p>
             </div>
-            <div className={styles.likeItem} onClick={() => { updataLike(item.product_no) }}>
+            <div className={styles.likeItem} onClick={() => { updataLike(item.product_no, session.user.email) }}>
                 {
                     <Image src={item.like ? "/images/like2.png" : "/images/like.png"} alt="" width={20} height={20} className={styles.searchBtn} />
                 }

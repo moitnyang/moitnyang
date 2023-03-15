@@ -1,40 +1,45 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { CategoryContext } from '../_app';
 import { CategoryTranslate } from '../_app';
 import Image from 'next/image';
 import styles from '@/styles/first.module.scss';
-
+import { useSession, signOut } from "next-auth/react"
 function First() {
     const router = useRouter();
-    const { setCategory, searchFn, search, setSearch } = useContext(CategoryContext);
+    const { getProduct, setCategory, searchFn, search, setSearch } = useContext(CategoryContext);
     const { categoryTranslate } = useContext(CategoryTranslate);
     const categoryList = ['baby', 'book', 'furniture', 'hobby', 'fashion', 'homeAppliance', 'householdGoods', 'petSupplies', 'sport'];
-
+    const { data: session, status } = useSession();
+    useEffect(() => {
+        getProduct(session?.user.email);
+    }, [status])
+    // 메뉴 이동
     function LikesMenuClick() {
-        setCategory("likeItems");
-        router.push({ pathname: '/src/List' });
+        router.push({ pathname: '/src/List', query: { category: "likeItems" } });
     }
     function hotMenuClick() {
-        setCategory("hotItems");
-        router.push({ pathname: '/src/List' });
+        router.push({ pathname: '/src/List', query: { category: "hotItems" } });
     }
     function mapMenuClick() {
-        setCategory("nearItems");
-        router.push({ pathname: '/src/List' });
+        router.push({ pathname: '/src/List', query: { category: "nearItems" } });
     }
-    function searchClick(){
-        setCategory("searchItems");
-        searchFn(search);
-        router.push({ pathname: '/src/List' });
-       
+    function searchClick() {
+        router.push({ pathname: '/src/List', query: { category: "searchItems", search: search } });
+    }
+    // 로그아웃하면 메인 페이지로 이동
+    function logOutFn() {
+        signOut({ callbackUrl: "/" })
     }
     return (
         <>
             <div className={styles.SearchCon}>
-                <input placeholder='찾는물건을 검색해주세요' onChange={(e) => { setSearch(e.target.value) }}>
-                </input>
-                <Image src={`/images/search.png`} alt="" width={20} height={20} onClick={searchClick} />
+                <div>
+                    <input placeholder='찾는물건을 검색해주세요' onChange={(e) => { setSearch(e.target.value) }}>
+                    </input>
+                    <Image src={`/images/search.png`} alt="" width={20} height={20} onClick={searchClick} className={styles.search} />
+                </div>
+                <Image src="/images/logOut.png" width={30} height={30} alt="" onClick={() => { logOutFn() }} className={styles.logOut} />
             </div>
             <section className={styles.category}>
                 {
@@ -42,7 +47,7 @@ function First() {
                         return (
                             <figure
                                 key={idx}
-                                onClick={() => { setCategory(el); router.push({ pathname: '/src/List' }) }}
+                                onClick={() => { router.push({ pathname: '/src/List', query: { category: el } }) }}
                             >
                                 <Image src={`/images/menu/${el}.png`} alt="" width={100} height={96} />
                                 <figcaption>{categoryTranslate(el)}</figcaption>

@@ -5,7 +5,6 @@ import { executeQuery } from "../db";
 export default async function handler(req, res) {
     const { method, query } = req;
     const product_no = query.no
-    //console.log(product_no)
     const selectProductInfo = async () => {
         if (product_no) {
             try {

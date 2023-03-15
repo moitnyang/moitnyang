@@ -24,27 +24,21 @@ export default function Register() {
   });
 
   async function onSubmit(values) {
-    
-    const response = await fetch('http://localhost:3000/api/auth/signup', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(values)
-        });
 
-    // try {
-    //   const response = await fetch('http://localhost:3000/api/auth/signup', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(values)
-    //   });
-    //   const data = await response.json();
-    //   if (data.success) {
-    //     router.push('http://localhost:3000');
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    // }
-    console.log(values)
+    const response = await fetch('/api/auth/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values)
+    }).then((res) =>  
+      res.json()
+  )
+    if(response.success){
+      
+      console.log("회원가입 성공");
+      router.push("/src/First")
+    }else{
+      alert("같은 아이디가 있습니다.");
+    }
   }
 
   return (
@@ -53,21 +47,20 @@ export default function Register() {
         <title>Register</title>
       </Head>
 
-      <section className="w-3/4 mx-auto flex flex-col gap-10">
+      <section className="w-3/4 mx-auto flex flex-col gap-5">
         <div className="title">
-          <h1 className="text-gray-800 md:text-4xl text-3xl font-bold py-4">회원가입</h1>
-          <p className="w-3/4 mx-auto text-gray-400 text-sm md:text-lg">
+          <h1 className="text-gray-800 text-3xl md:text-4xl lg:text-4xl font-bold py-4">회원가입</h1>
+          <p className="w-3/4 mx-auto text-gray-400 text-sm md:text-lg lg:text-lg">
             회원가입하라냥
           </p>
         </div>
         {/* form */}
         <form className="flex flex-col gap-5" onSubmit={formik.handleSubmit}>
-        <div
-            className={`${styles.input_group} ${
-              formik.errors.id && formik.touched.id
+          <div
+            className={`${styles.input_group} ${formik.errors.id && formik.touched.id
                 ? "border-red-500"
                 : ""
-            }`}
+              }`}
           >
             <input
               type="text"
@@ -77,16 +70,14 @@ export default function Register() {
               {...formik.getFieldProps("id")}
             />
             <span className="icon flex items-center px-4">
-              <HiOutlineIdentification size={25} />
+              <HiOutlineIdentification size={23} />
             </span>
           </div>
-          {/* {formik.errors.email && formik.touched.email ?<span className="text-red-500">{formik.errors.email}</span>:<></>} */}
           <div
-            className={`${styles.input_group} ${
-              formik.errors.password && formik.touched.password
+            className={`${styles.input_group} ${formik.errors.password && formik.touched.password
                 ? "border-red-500"
                 : ""
-            }`}
+              }`}
           >
             <input
               type={`${show.password ? "text" : "password"}`}
@@ -99,17 +90,14 @@ export default function Register() {
               className="icon flex items-center px-4"
               onClick={() => setShow({ ...show, password: !show.password })}
             >
-              <HiLockClosed size={25} />
+              <HiLockClosed size={23} />
             </span>
           </div>
-          {/* {formik.errors.password && formik.touched.password ?<span className="text-red-500">{formik.errors.password}</span>:<></>} */}
-          
           <div
-            className={`${styles.input_group} ${
-              formik.errors.username && formik.touched.username
+            className={`${styles.input_group} ${formik.errors.username && formik.touched.username
                 ? "border-red-500"
                 : ""
-            }`}
+              }`}
           >
             <input
               type="text"
@@ -119,16 +107,14 @@ export default function Register() {
               {...formik.getFieldProps("username")}
             />
             <span className="icon flex items-center px-4">
-              <HiOutlineUser size={25} />
+              <HiOutlineUser size={23} />
             </span>
           </div>
-          {/* {formik.errors.username && formik.touched.username ?<span className="text-red-500">{formik.errors.username}</span>:<></>} */}
           <div
-            className={`${styles.input_group} ${
-              formik.errors.phone && formik.touched.phone
+            className={`${styles.input_group} ${formik.errors.phone && formik.touched.phone
                 ? "border-red-500"
                 : ""
-            }`}
+              }`}
           >
             <input
               type="tel"
@@ -141,11 +127,9 @@ export default function Register() {
               className="icon flex items-center px-4"
               onClick={() => setShow({ ...show, cpassword: !show.cpassword })}
             >
-              <HiPhone size={25} />
+              <HiPhone size={23} />
             </span>
           </div>
-          {/* {formik.errors.cpassword && formik.touched.cpassword ?<span className="text-red-500">{formik.errors.cpassword}</span>:<></>} */}
-
           {/* sign up buttons */}
           <div className="input-button">
             <button type="submit" className={styles.button}>
@@ -154,10 +138,10 @@ export default function Register() {
           </div>
         </form>
         {/* bottom */}
-        <div className="text-center text-gray-400 ">
+        <div className="text-center text-gray-400 text-sm md:text-base lg:text-base">
           Have an account?{" "}
           <Link href={"/src/Login"}>
-            <div className="text-blue-700">Sign In</div>
+            <div className="text-blue-700 text-sm md:text-base lg:text-base">Sign In</div>
           </Link>
         </div>
       </section>

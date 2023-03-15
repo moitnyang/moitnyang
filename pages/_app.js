@@ -8,7 +8,6 @@ export const CategoryTranslate = createContext();
 
 export default function App({ Component, pageProps }) {
   const [category, setCategory] = useState('');
-
   const action = useMemo(
     () => ({
       categoryTranslate(c) {
@@ -33,22 +32,19 @@ export default function App({ Component, pageProps }) {
   const [likeCheck, setLikeCheck] = useState(); // 찜 목록
   const [rank, setRank] = useState(); // 좋아요 랭크 목록
   const [nearProduct, setNearProduct] = useState(); // 근처 상품 목록
-  async function getProduct() {
-    const data = await axios.get("/api/product");
+  async function getProduct(id) {
+    const data = await axios.get("/api/product", { params: { id } });
     setProduct(data.data.data);
     setLikeCheck(data.data.likeData);
     setRank(data.data.rankData);
+    
   }
-  useEffect(() => {
-    getProduct();
-  }, [])
+
   ///////////////////////////////////////////////////////////////////////////////////////////
-
-
   // 좋아요 클릭시 
-  const updataLike = async (no) => {
-    await axios.put(`/api/like/${no}`);
-    getProduct();
+  const updataLike = async (no, id) => {
+    await axios.put(`/api/like/${no}`, { id: id });
+    getProduct(id);
   }
 
   /////////////// 현재 위치 /////////////////////////////////////////////////////////////
@@ -102,7 +98,6 @@ export default function App({ Component, pageProps }) {
       Math.sin(dLng / 2) * Math.sin(dLng / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const d = R * c; // 두 지점 사이의 거리 (km)
-
     return parseFloat(d.toFixed(2)); // 소수점 아래 2자리까지만 포함
   }
   function nearbyLocationsFn(centerLat, centerLng) {
@@ -121,8 +116,8 @@ export default function App({ Component, pageProps }) {
   /////////////////// 글쓰기 ////////////////////////////////////////////////////////////////
   const [image, setImage] = useState(null);
   const router = useRouter();
-  const write = async (title, category, price, content) => {
-    if (image && title && category && content && price && category != "n") {
+  const write = async (title, category, price, content, id) => {
+    if (image && title && content && price && id && category != "n") {
       const body = new FormData();
       // db에 저장될 정보를  FormData에 담아서 api로 전달
       const fileName = "uploads/" + Math.random().toString(36).substring(2, 11) + new Date().getTime() + image.name;
@@ -135,12 +130,14 @@ export default function App({ Component, pageProps }) {
       body.append("dong", dong);
       body.append("lat", latitude);
       body.append("lng", longitude);
+      body.append("id", id);
       try {
         await axios.post('/api/product', body, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
         }).then(res => {
+          getProduct();
           router.push("/src/First")  //확인
         });
       }
@@ -155,25 +152,69 @@ export default function App({ Component, pageProps }) {
   ///////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////// 검색 ////////////////////////////////////////////////////
   const [search, setSearch] = useState();
-  const [searchItems,setSearchItems] = useState();
-  const searchFn = async (search) => {
-    await axios.get("/api/search", { params: { search } }).then(res =>setSearchItems(res.data))
+  const [searchItems, setSearchItems] = useState();
+  const searchFn = async (data) => {
     
+    var data = await axios.get("/api/search",  { params: { search : data } });
+    data.data && data.data.map((obj) => (
+      likeCheck && likeCheck.map((oobj) => {
+        if (obj.product_no == oobj.product_no) {
+            obj.like = true;
+        }
+      })
+    )) 
+     setSearchItems(data.data);
+
   }
   ////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////좋아요 확인/////////////////////////////////////////////////////
+  function likeProduct() {
+    product && product.map((obj) => (
+      likeCheck && likeCheck.map((oobj) => {
+        if (obj.product_no == oobj.product_no) {
+          obj.like = true
+        }
+      }))
+    )
+    likeCheck && likeCheck.map((obj) => (
+      likeCheck && likeCheck.map((oobj) => {
+        if (obj.product_no == oobj.product_no) {
+          obj.like = true
+        }
+      }))
+    )
+    rank && rank.map((obj) => (
+      likeCheck && likeCheck.map((oobj) => {
+        if (obj.product_no == oobj.product_no) {
+          obj.like = true;
+        }
+      }))
+    )
+    nearProduct && nearProduct.map((obj) => (
+      likeCheck && likeCheck.map((oobj) => {
+        if (obj.product_no == oobj.product_no) {
+          obj.like = true;
+        }
+      }))
+    )
+  }
+  useEffect(()=>{
+    likeProduct();
+  },[likeCheck])
+   /////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// 댓글 /////////////////////////////////////////////////////////
 
   const [commentList, setList] = useState();
   // 댓글 쓰기
-  const commentInsert = async (no, comment) => {
-    await axios.post(`/api/comment/${no}`, { content: comment })
+  const commentInsert = async (no, comment, id) => {
+    await axios.post(`/api/comment/${no}`, { content: comment, id })
     commentSelect(no);
   }
   // 댓글 가져오기
   const commentSelect = async (no) => {
     await axios.get(`/api/comment/`).then((res) => setList(res.data.filter(obj => obj.product_no == no)));
   }
- 
+
 
   ///////////////////상품  정보 //////////////////////////////////////////////////
   const [productInfo, setProductInfo] = useState();
@@ -190,11 +231,11 @@ export default function App({ Component, pageProps }) {
 
   }
 
- ////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////
   return (
     <SessionProvider session={pageProps.session}>
       <CategoryTranslate.Provider value={action}>
-        <CategoryContext.Provider value={{ category, setCategory, product, likeCheck, rank, updataLike, setImage, write, nearProduct, searchFn, commentInsert, commentList, commentSelect, getProductInfo, productInfo, searchItems, search, setSearch }}>
+        <CategoryContext.Provider value={{ getProduct, category, setCategory, product, likeCheck, rank, updataLike, likeProduct, setImage, write, nearProduct, searchFn, commentInsert, commentList, commentSelect, getProductInfo, productInfo, searchItems, search, setSearch }}>
           <Component {...pageProps} />
         </CategoryContext.Provider>
       </CategoryTranslate.Provider>

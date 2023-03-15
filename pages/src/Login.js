@@ -5,47 +5,45 @@ import Link from "next/link";
 import Image from 'next/image'
 import styles from "@/styles/Form.module.css";
 import { HiOutlineIdentification, HiLockClosed } from "react-icons/hi";
-import { signIn, signOut } from "next-auth/react"
+import { signIn, useSession } from "next-auth/react"
 import { useFormik } from 'formik';
 import login_validate from '@/lib/validate'
 import { useRouter } from "next/router";
 
+
 export default function Login() {
 
   const [show, setShow] = useState(false);
+  const { data: session, status } = useSession();
   const router = useRouter()
   //formik hook
   const formik = useFormik({
-      initialValues:{
-        email: "",
-        password:""
-      },
-      validate:login_validate, /* 유효성 검사 컴포넌트*/
-      onSubmit
-    })
-
-
-    async function onSubmit (values){
-      const status = await signIn("credentials",{
-        redirect:false,
-        email:values.email,
-        password:values.password,
-        callbackUrl:"/"
-      })
-
-      if(status.ok)router.push(status.url)
+    initialValues: {
+      id: "",
+      password: ""
+    },
+    validate: login_validate, /* 유효성 검사 컴포넌트*/
+    onSubmit
+  })
+  async function onSubmit(values) {
+    const result = await signIn("credentials", {
+      redirect: true,
+      id: values.id,
+      password: values.password,
+      callbackUrl: "/src/First",
+    });
+    if (result.status != 200) {
+      alert("아이디와 패스워드가 일치하지 않습니다.")
     }
-  
-  
-
+  }
   //Google Handler function
-  async function handleGoogleSignin(){
-    signIn("google",{callbackUrl:"http://localhost:3000"}) /* 메인페이지 주소로 나중에 바꾸기 */
+  async function handleGoogleSignin() {
+    signIn("google", { callbackUrl: "/src/First" })
   }
 
   //Github Login
-  async function handleGithubSignin(){
-    signIn("github", {callbackUrl:"http://localhost:3000"})
+  async function handleGithubSignin() {
+    signIn("github", { callbackUrl: "/src/First" })
   }
 
   return (
@@ -54,21 +52,20 @@ export default function Login() {
         <title>Login</title>
       </Head>
 
-      <section className="w-3/4 mx-auto flex flex-col gap-10">
+      <section className="w-4/5 h-4/5 mx-auto flex flex-col gap-5">
         <div className="title">
-          <h1 className="text-gray-800 text-4xl font-bold py-4">로그인</h1>
-          <p className="w-3/4 mx-auto text-gray-400">
+          <h1 className="text-gray-800  text-3xl md:text-4xl lg:text-4xl font-bold py-4">로그인</h1>
+          <p className="w-3/4 mx-auto text-gray-400 text-sm md:text-lg lg:text-lg">
             로그인 해달라냥
           </p>
         </div>
         {/* form */}
         <form className="flex flex-col gap-5" onSubmit={formik.handleSubmit}>
-        <div
-            className={`${styles.input_group} ${
-              formik.errors.id && formik.touched.id
+          <div
+            className={`${styles.input_group} ${formik.errors.id && formik.touched.id
                 ? "border-red-500"
                 : ""
-            }`}
+              }`}
           >
             <input
               type="text"
@@ -78,11 +75,10 @@ export default function Login() {
               {...formik.getFieldProps("id")}
             />
             <span className="icon flex items-center px-4">
-              <HiOutlineIdentification size={25} />
+              <HiOutlineIdentification size={23} />
             </span>
           </div>
-          {/* {formik.errors.email && formik.touched.email ?<span className="text-red-500">{formik.errors.email}</span>:<></>} */}
-          <div className={`${styles.input_group} ${formik.errors.password && formik.touched.password ? "border-red-500":""}`}>
+          <div className={`${styles.input_group} ${formik.errors.password && formik.touched.password ? "border-red-500" : ""}`}>
             <input
               type={`${show ? "text" : "password"}`}
               name="password"
@@ -93,12 +89,9 @@ export default function Login() {
             <span className="icon flex items-center px-4"
               onClick={() => setShow(!show)}
             >
-              <HiLockClosed size={25}/>
+              <HiLockClosed size={23} />
             </span>
           </div>
-            {/* {formik.errors.password && formik.touched.password ?<span className="text-red-500">{formik.errors.password}</span>:<></>} */}
-
-          {/* login buttons */}
           <div className="input-button">
             <button type="submit" className={styles.button}>
               로그인
@@ -118,10 +111,10 @@ export default function Login() {
           </div>
         </form>
         {/* bottom */}
-        <div className="text-center text-gray-400 text-sm md:text-base">
+        <div className="text-center text-gray-400 text-sm md:text-base lg:text-base">
           dont have an account yet?{" "}
           <Link href={"/src/Register"}>
-            <div className="text-blue-700 text-sm md:text-base">Sign Up</div>
+            <div className="text-blue-700 text-sm md:text-base lg:text-base">Sign Up</div>
           </Link>
         </div>
       </section>

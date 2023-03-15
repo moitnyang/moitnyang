@@ -2,24 +2,34 @@ import React, { useContext, useEffect, useState } from 'react'
 import styles from '@/styles/info.module.scss';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import axios from 'axios';
+
 import { CategoryContext } from '../_app';
+import {useSession } from "next-auth/react"
 function Info() {
     const router = useRouter();
-
-    const { likeCheck, updataLike, commentInsert, commentList, getProductInfo, productInfo, commentSelect } = useContext(CategoryContext)
+    const { data: session, status } = useSession();
+    const { likeCheck, getProduct, updataLike, commentInsert, commentList, getProductInfo, productInfo, commentSelect } = useContext(CategoryContext)
     const [comment, setComment] = useState();
+    //새로고침시 다시 데이터 받아옴
     useEffect(() => {
+        getProduct(session?.user.email); 
         getProductInfo(router.query.no);
-        commentSelect(router.query.no)
-    }, [])
+        commentSelect(router.query.no);
+    }, [router.query.no])
+    //좋아요
     useEffect(() => {
         getProductInfo(router.query.no);
     }, [likeCheck])
+    // 댓글
+    function commentClick(no){
+        commentInsert(no, comment, session.user.email);
+        setComment('')
+    }
+    
     return (
         <>
             <div className={styles.infoHeader}>
-                <button onClick={() => router.push({ pathname: '/src/List' })}>
+                <button onClick={() => router.push({ pathname: '/src/List', query:{category : router.query.category} })}>
                     <Image src="/images/back.png" alt="" width={25} height={25} />
                 </button>
                 <p>물건 상세정보</p>
@@ -35,7 +45,7 @@ function Info() {
                             <figure>
                                 <Image src={productInfo.product_img} width={100} height={100} layout="responsive" unoptimized={true} alt='' />
                             </figure>
-                            <Image src={productInfo.like ? "/images/like2.png" : "/images/like.png"} width={35} height={35} className={styles.likebtn} onClick={() => { updataLike(productInfo.product_no) }} alt='' />
+                            <Image src={productInfo.like ? "/images/like2.png" : "/images/like.png"} width={35} height={35} className={styles.likebtn} onClick={() => { updataLike(productInfo.product_no,session.user.email) }} alt='' />
                         </div>
                         <div className={styles.infoBox}>
                             <div className={styles.idBox}>
@@ -58,8 +68,8 @@ function Info() {
 
                     <div className={styles.commentBox}>
                         <div className={styles.inputBox}>
-                            <input type="text" onChange={(e) => setComment(e.target.value)} />
-                            <button onClick={() => { commentInsert(router.query.no, comment) }}>댓글 달기</button>
+                            <input type="text" onChange={(e) => setComment(e.target.value)} value={comment} />
+                            <button onClick={() =>{commentClick(router.query.no)}}>댓글 달기</button>
                         </div>
                         <div className={styles.commentContent}>
                             {/* comment 컴포넌트로 뿌려줌 */}

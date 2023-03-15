@@ -51,15 +51,12 @@
     .imgBox {
         border-bottom: 1px solid rgb(157, 157, 157);
         position: relative;
-
         >figure {
-            margin: 10px 0;
-
+            margin: 10px 10px;
             img {
                 max-height: 500px;
             }
         }
-
         .likebtn {
             position: absolute;
 
