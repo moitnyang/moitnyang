@@ -66,7 +66,7 @@ export default NextAuth({
     }),
 
   ],
-
+  secret:'aabb',
   session: {
     strategy: 'jwt',
     maxAge: 24 * 60 * 60,
