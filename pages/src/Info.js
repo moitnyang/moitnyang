@@ -29,7 +29,7 @@ function Info() {
     return (
         <>
             <div className={styles.infoHeader}>
-                <button onClick={() => router.push({ pathname: '/src/List', query:{category : router.query.category} })}>
+                <button onClick={() => router.push({ pathname: '/src/List', query:{category : router.query.category, search: router.query.search} })}>
                     <Image src="/images/back.png" alt="" width={25} height={25} />
                 </button>
                 <p>물건 상세정보</p>

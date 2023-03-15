@@ -28,7 +28,7 @@ function List() {
         searchFn(router.query.search)
         setCheck(!check);
     }, [likeCheck])
-
+   
     //좋아요 개수 많은 상위 5개 정렬해서 인기매물 목록으로 만들기 api sql로 불러오는 데이터 조정 상위 5개    
     //인기매물 목록 
     const hotItemListMake = rank && rank.map((item, idx) => { return <Item key={idx} item={item} /> });
@@ -104,7 +104,7 @@ function Item({ item }) {
     // 상품정보로 이동
     const infoMove = (e, no) => {
         if (e.target.className != "list_searchBtn___E6C7") {
-            router.push({ pathname: '/src/Info', query: { no: item.product_no, category: router.query.category } })
+            router.push({ pathname: '/src/Info', query: { no: item.product_no, category: router.query.category, search : router.query.search } })
         }
 
     }

@@ -29,7 +29,7 @@ function First() {
     }
     // 로그아웃하면 메인 페이지로 이동
     function logOutFn() {
-        signOut({ callbackUrl: "/" })
+        signOut({ callbackUrl: "https://port-0-moitnyang-4uvg2mlef6ku98.sel3.cloudtype.app/" })
     }
     return (
         <>

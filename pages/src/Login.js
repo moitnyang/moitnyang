@@ -30,7 +30,7 @@ export default function Login() {
       redirect: true,
       id: values.id,
       password: values.password,
-      callbackUrl: "https://port-0-moitnyang-4uvg2mlef6ku98.sel3.cloudtype.app/",
+      callbackUrl: "https://port-0-moitnyang-4uvg2mlef6ku98.sel3.cloudtype.app/src/first",
     });
     if (result.status != 200) {
       alert("아이디와 패스워드가 일치하지 않습니다.")
@@ -38,12 +38,12 @@ export default function Login() {
   }
   //Google Handler function
   async function handleGoogleSignin() {
-    signIn("google", { callbackUrl: "https://port-0-moitnyang-4uvg2mlef6ku98.sel3.cloudtype.app/" })
+    signIn("google", { callbackUrl: "https://port-0-moitnyang-4uvg2mlef6ku98.sel3.cloudtype.app/src/first" })
   }
 
   //Github Login
   async function handleGithubSignin() {
-    signIn("github", { callbackUrl: "https://port-0-moitnyang-4uvg2mlef6ku98.sel3.cloudtype.app/" })
+    signIn("github", { callbackUrl: "https://port-0-moitnyang-4uvg2mlef6ku98.sel3.cloudtype.app/src/first" })
   }
 
   return (
