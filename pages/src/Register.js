@@ -24,27 +24,21 @@ export default function Register() {
   });
 
   async function onSubmit(values) {
-      
-    const response = await fetch('http://localhost:3000/api/auth/signup', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(values)
-        }).then((res)=>console.log(res));
 
-    // try {
-    //   const response = await fetch('http://localhost:3000/api/auth/signup', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(values)
-    //   });
-    //   const data = await response.json();
-    //   if (data.success) {
-    //     router.push('http://localhost:3000');
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    // }
-    console.log(values)
+    const response = await fetch('/api/auth/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values)
+    }).then((res) =>  
+      res.json()
+  )
+    if(response.success){
+      
+      console.log("회원가입 성공");
+      router.push("/src/First")
+    }else{
+      alert("같은 아이디가 있습니다.");
+    }
   }
 
   return (
@@ -62,12 +56,11 @@ export default function Register() {
         </div>
         {/* form */}
         <form className="flex flex-col gap-5" onSubmit={formik.handleSubmit}>
-        <div
-            className={`${styles.input_group} ${
-              formik.errors.id && formik.touched.id
+          <div
+            className={`${styles.input_group} ${formik.errors.id && formik.touched.id
                 ? "border-red-500"
                 : ""
-            }`}
+              }`}
           >
             <input
               type="text"
@@ -80,13 +73,11 @@ export default function Register() {
               <HiOutlineIdentification size={23} />
             </span>
           </div>
-          {/* {formik.errors.email && formik.touched.email ?<span className="text-red-500">{formik.errors.email}</span>:<></>} */}
           <div
-            className={`${styles.input_group} ${
-              formik.errors.password && formik.touched.password
+            className={`${styles.input_group} ${formik.errors.password && formik.touched.password
                 ? "border-red-500"
                 : ""
-            }`}
+              }`}
           >
             <input
               type={`${show.password ? "text" : "password"}`}
@@ -102,14 +93,11 @@ export default function Register() {
               <HiLockClosed size={23} />
             </span>
           </div>
-          {/* {formik.errors.password && formik.touched.password ?<span className="text-red-500">{formik.errors.password}</span>:<></>} */}
-          
           <div
-            className={`${styles.input_group} ${
-              formik.errors.username && formik.touched.username
+            className={`${styles.input_group} ${formik.errors.username && formik.touched.username
                 ? "border-red-500"
                 : ""
-            }`}
+              }`}
           >
             <input
               type="text"
@@ -122,13 +110,11 @@ export default function Register() {
               <HiOutlineUser size={23} />
             </span>
           </div>
-          {/* {formik.errors.username && formik.touched.username ?<span className="text-red-500">{formik.errors.username}</span>:<></>} */}
           <div
-            className={`${styles.input_group} ${
-              formik.errors.phone && formik.touched.phone
+            className={`${styles.input_group} ${formik.errors.phone && formik.touched.phone
                 ? "border-red-500"
                 : ""
-            }`}
+              }`}
           >
             <input
               type="tel"
@@ -144,8 +130,6 @@ export default function Register() {
               <HiPhone size={23} />
             </span>
           </div>
-          {/* {formik.errors.cpassword && formik.touched.cpassword ?<span className="text-red-500">{formik.errors.cpassword}</span>:<></>} */}
-
           {/* sign up buttons */}
           <div className="input-button">
             <button type="submit" className={styles.button}>

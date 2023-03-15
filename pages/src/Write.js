@@ -1,20 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import axios from 'axios';
 import styles from '@/styles/write.module.scss';
 import { CategoryContext, CategoryTranslate } from '../_app';
-
+import {useSession } from "next-auth/react"
 function Write() {
   const router = useRouter();
-  //const [image, setImage] = useState(null);
   const [imageSrc, setImageSrc] = useState('');
   const [data, setData] = useState([]);
   const { categoryTranslate } = useContext(CategoryTranslate);
   const {setImage, write} = useContext(CategoryContext);
   const categoryList = ['baby', 'book', 'furniture', 'hobby', 'fashion', 'homeAppliance', 'householdGoods', 'petSupplies', 'sport'];
-
-
+  const { data: session, status } = useSession();
+  
   /////// Geolocation을 활용하여 위도,경도를 구하고 KAKAO_MAP_API를 이용하여 주소를 가져옴////////
   // function currentLocation() {
   //   // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
@@ -86,7 +84,7 @@ function Write() {
           <Image src="/images/back.png" alt="" width={25} height={25} />
         </button>
         <p>물건 올리기</p>
-        <button className={styles.submitBtn} onClick={()=>{write(data.title, data.category, data.price, data.content, data.category)}}>완료</button>
+        <button className={styles.submitBtn} onClick={()=>{write(data.title, data.category, data.price, data.content, session.user.email)}}>완료</button>
       </div>
       <div className={styles.writeContainer}>
         <div className={styles.fileBox}>

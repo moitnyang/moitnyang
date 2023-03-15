@@ -5,51 +5,45 @@ import Link from "next/link";
 import Image from 'next/image'
 import styles from "@/styles/Form.module.css";
 import { HiOutlineIdentification, HiLockClosed } from "react-icons/hi";
-import { signIn, signOut } from "next-auth/react"
+import { signIn, useSession } from "next-auth/react"
 import { useFormik } from 'formik';
 import login_validate from '@/lib/validate'
 import { useRouter } from "next/router";
 
+
 export default function Login() {
 
   const [show, setShow] = useState(false);
+  const { data: session, status } = useSession();
   const router = useRouter()
   //formik hook
   const formik = useFormik({
-      initialValues:{
-        id: "",
-        password:""
-      },
-      validate:login_validate, /* 유효성 검사 컴포넌트*/
-      onSubmit
-    })
-
-
-    async function onSubmit(values) {
-      console.log(values.id, values.password)
-      const result = await signIn("credentials", {
-        redirect: false,
-        id: values.id,
-        password: values.password,
-      });
-
-      console.log(result, "성공")
-      // const result = await fetch("/api/auth/signup",{
-      //   method: 'GET',
-        
-      //   body: [values.id,values.password]
-      // }).then((res)=>console.log(res));
+    initialValues: {
+      id: "",
+      password: ""
+    },
+    validate: login_validate, /* 유효성 검사 컴포넌트*/
+    onSubmit
+  })
+  async function onSubmit(values) {
+    const result = await signIn("credentials", {
+      redirect: true,
+      id: values.id,
+      password: values.password,
+      callbackUrl: "/src/First",
+    });
+    if (result.status != 200) {
+      alert("아이디와 패스워드가 일치하지 않습니다.")
     }
-  
-
+  }
   //Google Handler function
-  async function handleGoogleSignin(){
-    signIn("google",{callbackUrl:"http://localhost:3000"}) /* 메인페이지 주소로 나중에 바꾸기 */
+  async function handleGoogleSignin() {
+    signIn("google", { callbackUrl: "/src/First" })
   }
 
   //Github Login
-  async function handleGithubSignin(){
-    signIn("github", {callbackUrl:"http://localhost:3000"})
+  async function handleGithubSignin() {
+    signIn("github", { callbackUrl: "/src/First" })
   }
 
   return (
@@ -67,12 +61,11 @@ export default function Login() {
         </div>
         {/* form */}
         <form className="flex flex-col gap-5" onSubmit={formik.handleSubmit}>
-        <div
-            className={`${styles.input_group} ${
-              formik.errors.id && formik.touched.id
+          <div
+            className={`${styles.input_group} ${formik.errors.id && formik.touched.id
                 ? "border-red-500"
                 : ""
-            }`}
+              }`}
           >
             <input
               type="text"
@@ -85,8 +78,7 @@ export default function Login() {
               <HiOutlineIdentification size={23} />
             </span>
           </div>
-          {/* {formik.errors.email && formik.touched.email ?<span className="text-red-500">{formik.errors.email}</span>:<></>} */}
-          <div className={`${styles.input_group} ${formik.errors.password && formik.touched.password ? "border-red-500":""}`}>
+          <div className={`${styles.input_group} ${formik.errors.password && formik.touched.password ? "border-red-500" : ""}`}>
             <input
               type={`${show ? "text" : "password"}`}
               name="password"
@@ -100,9 +92,6 @@ export default function Login() {
               <HiLockClosed size={23} />
             </span>
           </div>
-            {/* {formik.errors.password && formik.touched.password ?<span className="text-red-500">{formik.errors.password}</span>:<></>} */}
-
-          {/* login buttons */}
           <div className="input-button">
             <button type="submit" className={styles.button}>
               로그인

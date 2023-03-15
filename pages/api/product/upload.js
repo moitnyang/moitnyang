@@ -10,6 +10,7 @@ const awsAccessKey = process.env.MY_AWS_ACCESS_KEY;
 const awsSecretKey = process.env.MY_AWS_SECRET_KEY;
 const awsS3Bucket = process.env.MY_AWS_S3_BUCKET;
 const awsS3BucketRegion = process.env.MY_AWS_S3_BUCKET_REGION;
+
 const s3 = new S3Client({
   credentials: {
     accessKeyId: awsAccessKey,
@@ -20,11 +21,11 @@ const s3 = new S3Client({
 })
 
 export async function uploadFile(fileBuffer, fileName, mimetype) {
-
+ 
   //저장할 bucket의 위치와 이미지파일 이름, 데이터, 타입을 저장
   const uploadParams = {
     Bucket: awsS3Bucket,
-    Key: fileName,
+    Key: encodeURI(fileName),
     Body: fileBuffer,
     ContentType: mimetype
   }
@@ -38,5 +39,3 @@ export async function uploadFile(fileBuffer, fileName, mimetype) {
   //res.$metadata.httpStatusCode
   return {status:res.$metadata.httpStatusCode, url:url.split("?")[0]};
 }
-
-

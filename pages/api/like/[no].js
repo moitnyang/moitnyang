@@ -7,8 +7,7 @@ export default async function handler(req, res) {
     const { body, method, query } = req;
 
     const product_no = query.no;
-    const member_id = "hoon"
-
+    const member_id = body.id
     const updataLike = async () => {
         var msg = "";
         var likeData;

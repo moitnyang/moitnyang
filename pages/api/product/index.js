@@ -1,3 +1,4 @@
+
 import multer from "multer";
 import { executeQuery } from "../db";
 import { uploadFile } from "./upload"
@@ -23,7 +24,7 @@ export const config = {
     }
 }
 export default async function handler(req, res) {
-    const { body, method } = req;
+    const {query ,body, method } = req;
 
 
     async function insertProduct() {
@@ -42,15 +43,15 @@ export default async function handler(req, res) {
             const dong = req.body.dong;
             const lat = req.body.lat;
             const lng = req.body.lng;
-            const member_id = "hoon"  // id
+            const member_id = req.body.id;
             // 년 월 일
             const now = new Date()
-            const year = now.getFullYear();
             const month = now.getMonth() + 1;
             const day = now.getDate();
-            const date = `${year}.${month}.${day}`
-           
+            const date = `${month}.${day}`
+            
             const uploadCheck = await uploadFile(fileBuffer, fileName, fileType);  //이미지 업로드에 관한 함수
+            
             if (uploadCheck.status == 200) { //이미지 저장 성공
                 //이미지 저장 성공시 DB에 저장INSERT INTO `product`(`product_no`, `product_title`, `product_price`, `product_img`, `product_content`, `product_date`, `product_lng`, `product_category`, `likenum`, `member_id`, `product_dong`, `product_lat`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]','[value-9]','[value-10]','[value-11]','[value-12]')
                 await executeQuery("INSERT INTO product( product_title, product_price, product_img, product_content, product_date, product_lng, product_category, member_id, product_dong, product_lat) VALUES (?,?,?,?,?,?,?,?,?,?)",
@@ -66,19 +67,18 @@ export default async function handler(req, res) {
             }
         }
         catch (error) {
-            console.log(error);
             return res.send(error)
         }
     }
 
     const selectProduct = async () => {
-        const id = "hoon"
+        const member_id = query.id;
         // 전체 상품 불러오기
         var data = await executeQuery("SELECT * FROM product ", []);
         // 좋아요한 상품 불러오기 member_id 를 갖고와야함
-        var likeData = await executeQuery("SELECT * FROM product WHERE product_no IN (SELECT product_no FROM product_like WHERE member_id = 'hoon')", [])
+        var likeData = await executeQuery("SELECT * FROM product WHERE product_no IN (SELECT product_no FROM product_like WHERE member_id = ?)", [member_id])
         // 좋아요 랭크순 상품 불러오기
-        var rankData = await executeQuery("SELECT * FROM product ORDER BY likenum DESC LIMIT 5");
+        var rankData = await executeQuery("SELECT * FROM product ORDER BY likenum DESC LIMIT 5",[]);
         return res.status(200).json({
             data,
             likeData,

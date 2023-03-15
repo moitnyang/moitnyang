@@ -5,8 +5,6 @@ import { executeQuery } from "../db";
 export default async function handler(req, res) {
     const { method, query } = req;
     const product_no = query.no
-    const member_id = "hoon"
-   
     const selectProductInfo = async () => {
         if (product_no) {
             try {
@@ -22,10 +20,8 @@ export default async function handler(req, res) {
         }
 
     }
-
     switch (method) {
         case "GET": await selectProductInfo(); break;
-        case "PUT": await updataLike(); break;
     }
 
 }
