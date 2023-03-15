@@ -29,7 +29,7 @@ function First() {
     }
     // 로그아웃하면 메인 페이지로 이동
     function logOutFn() {
-        signOut({ callbackUrl: "/src/first" })
+        signOut({ callbackUrl: "/" })
     }
     return (
         <>
@@ -37,9 +37,9 @@ function First() {
                 <div>
                     <input placeholder='찾는물건을 검색해주세요' onChange={(e) => { setSearch(e.target.value) }}>
                     </input>
-                    <Image src={`/images/search.png`} alt="" width={20} height={20} onClick={searchClick} className={styles.search} />
+                    <Image src={`/images/search.png`} alt="" width={20} height={20} placeholder="blur" onClick={searchClick} className={styles.search} />
                 </div>
-                <Image src="/images/logOut.png" width={30} height={30} alt="" onClick={() => { logOutFn() }} className={styles.logOut} />
+                <Image src="/images/logOut.png" width={30} height={30} alt="" placeholder="blur" onClick={() => { logOutFn() }} className={styles.logOut} />
             </div>
             <section className={styles.category}>
                 {
@@ -49,7 +49,7 @@ function First() {
                                 key={idx}
                                 onClick={() => { router.push({ pathname: '/src/List', query: { category: el } }) }}
                             >
-                                <Image src={`/images/menu/${el}.png`} alt="" width={100} height={96} />
+                                <Image src={`/images/menu/${el}.png`} alt="" placeholder="blur" width={100} height={96} />
                                 <figcaption>{categoryTranslate(el)}</figcaption>
                             </figure>
                         )
@@ -58,9 +58,9 @@ function First() {
             </section>
             <nav className={styles.bottomMenu}>
                 <ul>
-                    <li onClick={() => mapMenuClick()}><Image src={"/images/map.png"} alt="" width={24} height={25} />내주변</li>
-                    <li onClick={() => hotMenuClick()}><Image src={"/images/hot.png"} alt="" width={30} height={30} />인기매물</li>
-                    <li onClick={() => LikesMenuClick()}><Image src={"/images/like.png"} alt="" width={25} height={25} />찜</li>
+                    <li onClick={() => mapMenuClick()}><Image src={"/images/map.png"} placeholder="blur" alt="" width={24} height={25} />내주변</li>
+                    <li onClick={() => hotMenuClick()}><Image src={"/images/hot.png"} placeholder="blur" alt="" width={30} height={30} />인기매물</li>
+                    <li onClick={() => LikesMenuClick()}><Image src={"/images/like.png"} placeholder="blur" alt="" width={25} height={25} />찜</li>
                 </ul>
             </nav>
 

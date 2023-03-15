@@ -30,7 +30,7 @@ export default function Login() {
       redirect: false,
       id: values.id,
       password: values.password,
-      callbackUrl: "/src/first",
+      callbackUrl: "/src/First",
     });
     if (result.status != 200) {
       alert("아이디와 패스워드가 일치하지 않습니다.")
@@ -38,12 +38,12 @@ export default function Login() {
   }
   //Google Handler function
   async function handleGoogleSignin() {
-    signIn("google", { callbackUrl: "/src/first" })
+    signIn("google", { callbackUrl: "/src/First" })
   }
 
   //Github Login
   async function handleGithubSignin() {
-    signIn("github", { callbackUrl: "/src/first" })
+    signIn("github", { callbackUrl: "/src/First" })
   }
 
   return (
