@@ -3,7 +3,6 @@
 const path = require('path'); // 1. path 선언
 
 const nextConfig = {
-
   reactStrictMode: true,
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],

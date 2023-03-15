@@ -1,25 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import axios from 'axios';
 import styles from '@/styles/write.module.scss';
-import { CategoryTranslate } from '../_app';
-
+import { CategoryContext, CategoryTranslate } from '../_app';
+import {useSession } from "next-auth/react"
 function Write() {
   const router = useRouter();
-  const [image, setImage] = useState(null);
   const [imageSrc, setImageSrc] = useState('');
   const [data, setData] = useState([]);
   const { categoryTranslate } = useContext(CategoryTranslate);
+  const {setImage, write} = useContext(CategoryContext);
   const categoryList = ['baby', 'book', 'furniture', 'hobby', 'fashion', 'homeAppliance', 'householdGoods', 'petSupplies', 'sport'];
-
-  // 테스트 상품목록 뿌려주기 + 좋아요 목록 //
-  async function test (){
-    var t = await axios.get("/api/product");
-    console.log(t.data);
-  }
-  useEffect(()=>{test()},[])
-
+  const { data: session, status } = useSession();
+  
   /////// Geolocation을 활용하여 위도,경도를 구하고 KAKAO_MAP_API를 이용하여 주소를 가져옴////////
   // function currentLocation() {
   //   // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
@@ -55,12 +48,12 @@ function Write() {
         alert("파일사이즈가 초과하였습니다.");
       }
       else {
-        setImage(i);
+        setImage(i)
         encodeFileToBase64(i);
       }
     }
   }
-  //업로드 사진 로직
+  //업로드 사진 미리보기
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
@@ -71,36 +64,6 @@ function Write() {
       };
     });
   };
-  //글 올리기
-  const write = async () => {
-    if (image && data.title && data.category && data.content && data.category != "n") {
-      const body = new FormData();
-      // db에 저장될 정보를  FormData에 담아서 api로 전달
-      const fileName = "uploads/" + Math.random().toString(36).substring(2, 11) + new Date().getTime() + image.name;
-      console.log(image)
-      body.append("image", image);
-      body.append("name", fileName);
-      body.append("title", data.title)
-      body.append("category", data.category)
-      body.append("price", data.price)
-      body.append("content", data.content)
-      try {
-        await axios.post('/api/product', body, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        }).then(res => {
-          router.push("/src/First")  //확인
-        });
-      }
-      catch (err) {
-        console.log(err)
-      }
-    }
-    else {
-      alert('입력하지 않은 정보가 있습니다.')
-    }
-  }
   // 가격 정규식
   const priceCk = (e) => {
     var price = e.target.value; //받은 값
@@ -121,7 +84,7 @@ function Write() {
           <Image src="/images/back.png" alt="" width={25} height={25} />
         </button>
         <p>물건 올리기</p>
-        <button className={styles.submitBtn} onClick={write}>완료</button>
+        <button className={styles.submitBtn} onClick={()=>{write(data.title, data.category, data.price, data.content, session.user.email)}}>완료</button>
       </div>
       <div className={styles.writeContainer}>
         <div className={styles.fileBox}>
@@ -129,9 +92,6 @@ function Write() {
             {imageSrc != false ? <img src={imageSrc} alt="preview-img" /> :
               <img src="/images/camera.png" alt="" />}</label>
           <input type="file" id="file" name='image' onChange={uploadToClient} />
-          {/*  <div className={styles.preview}>
-            {imageSrc && <img src={imageSrc} alt="preview-img" />}
-          </div> */}
           {imageSrc && <p>이미지를 클릭하여 사진을 변경할 수 있습니다.</p>}<p>※500Kb 이하의 사진만 가능합니다.</p>
         </div>
         <div className={styles.writeTextBox}>
@@ -144,7 +104,7 @@ function Write() {
                 {
                   categoryList.map((obj, key) => {
                     return (
-                      <option key={key} value={obj}>{categoryTranslate(obj)}</option>
+                      <option key={key} value={categoryTranslate(obj)}>{categoryTranslate(obj)}</option>
                     )
                   })
                 }

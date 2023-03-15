@@ -51,8 +51,8 @@
     .imgBox {
         border-bottom: 1px solid rgb(157, 157, 157);
         position: relative;
-
         >figure {
+            margin: 10px 10px;
             img {
                 max-height: 500px;
             }
@@ -66,19 +66,28 @@
 
     }
 
-    .idBox {
+    .infoBox {
         border-bottom: 1px solid rgb(157, 157, 157);
+        position: relative;
 
-        >div {
+        >.idBox{
             padding: 20px 25px;
-
-            >p {
+            >p{
                 margin: 5px 0;
-
                 &:nth-child(1) {
                     font-size: 24px;
-
                 }
+            }
+        }
+        >.dateBox {
+            padding: 0;
+            position: absolute;
+            top: 25%;
+            right: 0;
+            transform: translateY(50%);
+            margin-right: 10px;
+            >p {
+                font-size: 18px;
             }
         }
     }
@@ -124,8 +133,9 @@
             display: flex;
             width: 100%;
             justify-content: space-between;
-            >input[type="text"]{
-                all:unset;
+
+            >input[type="text"] {
+                all: unset;
                 flex-grow: 1;
                 background-color: #eee;
                 height: 50px;
@@ -133,8 +143,9 @@
                 padding: 0 25px;
 
             }
+
             >button {
-                
+
                 all: unset;
                 /* background: #F0E2C6; */
                 width: 100px;
@@ -145,30 +156,37 @@
                 cursor: pointer;
             }
         }
-        .commentContent{
+
+        .commentContent {
             padding: 20px 25px;
-            >div{
+
+            >div {
                 margin-bottom: 30px;
                 border-bottom: 1px solid #e6e6e6;
-                >.commentInfo{
+
+                >.commentInfo {
                     display: flex;
                     justify-content: space-between;
-                    >p{
+
+                    >p {
                         font-size: 16px;
                         line-height: 30px;
-                        &:nth-child(1){
-                           margin-right: 30px;
-                           font-size: 20px;
-                           font-weight: bold;
+
+                        &:nth-child(1) {
+                            margin-right: 30px;
+                            font-size: 20px;
+                            font-weight: bold;
                         }
-                        
+
                     }
                 }
-                >p{
+
+                >p {
                     margin-bottom: 15px;
                     font-size: 16px;
                 }
-                &:nth-last-child(1){
+
+                &:nth-last-child(1) {
                     margin-bottom: 0px;
                     border-bottom: 0px solid #e6e6e6;
                 }

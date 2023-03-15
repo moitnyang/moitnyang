@@ -5,14 +5,14 @@
 }
 
 .input_text{
-  @apply w-full py-2 md:py-4 px-6 border rounded-xl bg-slate-50;
+  @apply w-full py-2 md:py-4 lg:py-4 px-6 border rounded-xl bg-slate-50;
   @apply focus:outline-none border-none;
-  @apply placeholder:text-sm
+  @apply placeholder:text-xs md:placeholder:text-sm lg:placeholder:text-base
 }
 
 .button{
-  @apply w-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-md;
-  @apply py-3 text-gray-50 text-base md:text-lg
+  @apply w-full bg-gradient-to-r py-2 md:py-4 lg:py-4 from-blue-500 to-indigo-500 rounded-md;
+  @apply py-3 text-gray-50 text-base md:text-lg lg:text-lg;
 }
 
 .button:hover{
@@ -21,7 +21,7 @@
 }
 
 .button_custom{
-@apply w-full border py-3 flex justify-center gap-2 hover:bg-gray-200;
+@apply w-full border py-2 md:py-4 lg:py-4 text-sm md:text-base lg:text-base flex justify-center gap-2 hover:bg-gray-200;
 }
 
 .input_text:focus + *{
