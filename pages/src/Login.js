@@ -27,10 +27,10 @@ export default function Login() {
   })
   async function onSubmit(values) {
     const result = await signIn("credentials", {
-      redirect: true,
+      redirect: false,
       id: values.id,
       password: values.password,
-      callbackUrl: "https://port-0-moitnyang-4uvg2mlef6ku98.sel3.cloudtype.app/src/first",
+      callbackUrl: "/src/first",
     });
     if (result.status != 200) {
       alert("아이디와 패스워드가 일치하지 않습니다.")
@@ -38,12 +38,12 @@ export default function Login() {
   }
   //Google Handler function
   async function handleGoogleSignin() {
-    signIn("google", { callbackUrl: "https://port-0-moitnyang-4uvg2mlef6ku98.sel3.cloudtype.app/src/first" })
+    signIn("google", { callbackUrl: "/src/first" })
   }
 
   //Github Login
   async function handleGithubSignin() {
-    signIn("github", { callbackUrl: "https://port-0-moitnyang-4uvg2mlef6ku98.sel3.cloudtype.app/src/first" })
+    signIn("github", { callbackUrl: "/src/first" })
   }
 
   return (
