@@ -31,7 +31,7 @@ export default NextAuth({
             user[0].email = user[0].member_id;
             return user[0]
           } else {
-            return null;
+            throw new Error("아이디와 비밀번호가 틀립니다.");
           }
         // let user = await fetch(
         //   `http://localhost:3000/api/auth/signup?password=${credentials.password}&id=${credentials.id}`,

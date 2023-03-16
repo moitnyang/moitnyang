@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     const { body, method, query} = req;
     const selectComment = async()=> {
         
-        const data = await executeQuery("SELECT * FROM comment",[])
+        const data = await executeQuery("SELECT * FROM comment ORDER BY comment_no ",[])
         return res.status(200).json(data);
 
     }

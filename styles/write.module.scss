@@ -18,14 +18,14 @@
     align-items: center;
     height: 70px;
     position: relative;
-    padding: 0 5px;
+    padding: 0 20px;
     font-family: 'Cafe24Ssurround';
     border-bottom: 1px solid rgb(157, 157, 157);
 
     p {
         margin-left: 5px;
         color: rgb(130, 130, 130);
-        font-size: 18px;
+        font-size: 24px;
     }
 
     button {
@@ -76,16 +76,10 @@
         }
 
         label {
-            /* margin: 100px 25px;
-            left: 0;
-            bottom: 25%;
-            display: block;
-            cursor: pointer;
- */
             margin: 25px 25px;
             display: block;
             cursor: pointer;
-            min-height: 500px;
+            min-height: 50vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -116,20 +110,15 @@
     display: flex;
     flex-direction: column;
     font-family: 'Dovemayo_gothic';
-
-
     input[type="text"] {
         all: unset;
         border-bottom: 1px solid rgb(157, 157, 157);
         padding: 20px 25px;
-
     }
-
     >textarea {
         all: unset;
         padding: 20px 25px;
     }
-
     >.priceBox {
         display: flex;
         border-bottom: 1px solid rgb(157, 157, 157);
@@ -145,11 +134,9 @@
         }
 
     }
-
     .categoryBox {
         border-bottom: 1px solid rgb(157, 157, 157);
         padding: 20px 25px;
-
         >div {
             cursor: pointer;
             width: 120px;
@@ -159,21 +146,19 @@
                 all: unset;
                 width: 120px;
                 position: relative;
+                color: rgb(130, 130, 130);
             }
-
             &::before {
                 content: "";
                 display: block;
                 position: absolute;
-                top: -50%;
+                top: -20%;
                 right: 0px;
                 width: 20px;
                 height: 20px;
                 background-image: url("../public/images/selectbtn.png");
                 background-repeat: no-repeat;
                 background-size: cover;
-                transform: translateY(10%);
-
             }
         }
     }
