@@ -85,18 +85,18 @@ function ListHead({ searchConAct, setSearchConAct }) {
     return (
         <div className={styles.listHeader}>
             <button onClick={() => router.push({ pathname: '/src/First' })}>
-                <Image src="/images/back.png" alt="" width={25} height={25} />
+                <Image src="/images/back.png" alt="" width={25} height={25} priority/>
             </button>
             <div>
-                <Image src={router.query.category ? `/images/menu/${router.query.category}.png` : ""} alt="" width={65} height={65} />
+                <Image src={router.query.category ? `/images/menu/${router.query.category}.png` : ""} alt="" width={65} height={65} priority />
                 <p> {categoryTranslate(router.query.category)} </p>
             </div>
             <div>
                 <button onClick={() => router.push({ pathname: '/src/Write',query: { category: router.query.category} })} className={styles.writeBtn}>
-                    <Image src="/images/icWrite.png" alt="" width={35} height={25} />
+                    <Image src="/images/icWrite.png" alt="" width={35} height={25} priority/>
                 </button>
                 <button onClick={() => searchBtnClick()}>
-                    <Image src="/images/search.png" alt="" width={25} height={25} className={styles.searchBtn} />
+                    <Image src="/images/search.png" alt="" width={25} height={25} className={styles.searchBtn} priority />
                 </button>
             </div>
         </div>
