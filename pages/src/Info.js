@@ -31,11 +31,11 @@ function Info() {
         <>
             <div className={styles.infoHeader}>
                 <button onClick={() => router.push({ pathname: '/src/List', query: { category: router.query.category, search: router.query.search } })}>
-                    <Image src="/images/back.png" alt="" width={25} height={25} />
+                    <Image src="/images/back.png" alt="" width={25} height={25} priority />
                 </button>
                 <p>물건 상세정보</p>
                 <button onClick={() => router.push({ pathname: '/src/First' })}>
-                    <Image src="/images/HOME.svg" alt="" width={35} height={35} className={styles.home} />
+                    <Image src="/images/HOME.svg" alt="" width={35} height={35} className={styles.home} priority />
                 </button>
             </div>
             {

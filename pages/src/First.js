@@ -36,7 +36,7 @@ function First() {
     return (
         <>
             <div className={styles.firstHeader}>
-                <Image src="/images/logo.png" alt='' width={50} height={50} />
+                <Image src="/images/logo.png" alt='' width={50} height={50} priority/>
                 <p>모있냥</p>
             </div>
 
@@ -66,7 +66,7 @@ function First() {
                                 key={idx}
                                 onClick={() => { router.push({ pathname: '/src/List', query: { category: el } }) }}
                             >
-                                <Image src={`/images/menu/${el}.png`} alt="" width={100} height={96} />
+                                <Image src={`/images/menu/${el}.png`} alt="" width={100} height={96} priority />
                                 <figcaption>{categoryTranslate(el)}</figcaption>
                             </figure>
                         )
@@ -75,10 +75,10 @@ function First() {
             </section>
             <nav className={styles.bottomMenu}>
                 <ul>
-                    <li><Image src={"/images/map.png"} alt="" width={25} height={25} onClick={() => mapMenuClick()}/>내주변</li>
-                    <li><Image src={"/images/hot.png"} alt="" width={25} height={25} onClick={() => hotMenuClick()}/>인기매물</li>
-                    <li><Image src={"/images/like.png"} alt="" width={25} height={25} onClick={() => LikesMenuClick()}/>찜</li>
-                    <li><Image src={"/images/logOut.png"} width={25} height={25} alt="" onClick={() => { logOutFn() }}/>로그아웃</li>
+                    <li><Image src={"/images/map.png"} alt="" width={25} height={25} onClick={() => mapMenuClick()} priority/>내주변</li>
+                    <li><Image src={"/images/hot.png"} alt="" width={25} height={25} onClick={() => hotMenuClick()} priority/>인기매물</li>
+                    <li><Image src={"/images/like.png"} alt="" width={25} height={25} onClick={() => LikesMenuClick()} priority/>찜</li>
+                    <li><Image src={"/images/logOut.png"} width={25} height={25} alt="" onClick={() => { logOutFn() }} priority/>로그아웃</li>
                 </ul>
             </nav>
 
