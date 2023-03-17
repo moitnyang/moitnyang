@@ -44,7 +44,7 @@ function Info() {
                     <div key={productInfo.product_no}>
                         <div className={styles.imgBox} >
                             <figure>
-                                <Image src={productInfo.product_img} width={100} height={100} layout="responsive" unoptimized={true} alt='' />
+                                <Image src={productInfo.product_img} width={100} height={100} layout="fixed" unoptimized={true} alt='' />
                             </figure>
                             <Image src={productInfo.like ? "/images/like2.png" : "/images/like.png"} width={35} height={35} className={styles.likebtn} onClick={() => { updataLike(productInfo.product_no, session.user.email) }} alt='' />
                         </div>

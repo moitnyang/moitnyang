@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styles from '@/styles/list.module.scss';
 import { CategoryContext } from '../_app';
 import { CategoryTranslate } from '../_app';
-import { useSession } from "next-auth/react"
+import { useSession } from "next-auth/react";
 
 
 function List() {
@@ -81,14 +81,12 @@ function ListHead({ searchConAct, setSearchConAct }) {
     function searchBtnClick() {
         setSearchConAct(!searchConAct);
     }
-
     return (
         <div className={styles.listHeader}>
             <button onClick={() => router.push({ pathname: '/src/First' })}>
                 <Image src="/images/back.png" alt="" width={25} height={25} priority/>
             </button>
             <div>
-                <Image src={router.query.category ? `/images/menu/${router.query.category}.png` : ""} alt="" width={65} height={65} priority />
                 <p> {categoryTranslate(router.query.category)} </p>
             </div>
             <div>
@@ -106,49 +104,30 @@ function ListHead({ searchConAct, setSearchConAct }) {
 function Item({ item }) {
     const { updataLike } = useContext(CategoryContext);
     const router = useRouter();
-    const { data: session, status } = useSession();
+    const { data: session } = useSession();
+    
+    
     // 상품정보로 이동
     const infoMove = (e, no) => {
-        if (e.target.className != "list_searchBtn___E6C7") {
+        if (e.target.className != "list_likeItem__bq0q9") {
             router.push({ pathname: '/src/Info', query: { no: item.product_no, category: router.query.category, search: router.query.search } })
         }
 
     }
-
-    // function likeClick(no) {
-    // let findIndex = product.filter(item => item.product_no === no);
-    // let copiedItems = [...items];
-
-    // copiedItems[findIndex].likeThis = !copiedItems[findIndex].likeThis;
-
-    // //좋아요 누르면 +1 다시 누르면 취소
-    // if(copiedItems[findIndex].likeThis){
-    //     copiedItems[findIndex].likeNum += 1;
-    // }else{ copiedItems[findIndex].likeNum -= 1; }
-    // setItems(copiedItems);
-
-
-    // //좋아요 누르면 찜 목록에 추가
-    // if(copiedItems[findIndex].likeThis){
-    //     let copiedMyItems = [...myItems, copiedItems[findIndex]];
-    //     setMyItems(copiedMyItems);
-    // }else{
-    //     let copiedMyItems = [...myItems];
-    //     let findIndex2 = myItems.findIndex(item => item.id === id);
-    //     copiedMyItems.splice(findIndex2,1);
-    //     setMyItems( copiedMyItems );
-    // }
-    // }
+    function likeFn(e,no,id){
+        e.stopPropagation();
+        updataLike(no,id)
+    }
     return (
 
         <li loading="lazy" className='item' onClick={(e) => { infoMove(e, item.product_no) }}>
-            <Image src={item.product_img} unoptimized={true} alt="" width={80} height={80} />
+            <Image src={item.product_img} unoptimized={true} alt="" width={80} height={80} className={styles.product}/>
             <div>
                 <p>{item.product_title}</p>
                 <p>{item.product_dong}·{item.product_date}</p>
                 <p>{Number(item.product_price).toLocaleString('kr-KR')}원</p>
             </div>
-            <div className={styles.likeItem} onClick={() => { updataLike(item.product_no, session.user.email) }}>
+            <div className={styles.likeItem} onClick={(e) => {likeFn(e,item.product_no, session.user.email) }}>
                 {
                     <Image src={item.like ? "/images/like2.png" : "/images/like.png"} alt="" width={20} height={20} className={styles.searchBtn} />
                 }

@@ -105,7 +105,7 @@ function Write() {
             {imageSrc != false ? <img src={imageSrc} alt="preview-img" /> :
               <img src="/images/camera.png" alt="" />}</label>
           <input type="file" id="file" name='image' onChange={uploadToClient} />
-          {imageSrc && <p>이미지를 클릭하여 사진을 변경할 수 있습니다.</p>}<p>※500Kb 이하의 사진만 가능합니다.</p>
+          {imageSrc && <p>이미지를 클릭하여 사진을 변경할 수 있습니다.</p>}<p>※500Kb 이상의 사진일 경우 화질이 저하될 수 있습니다.</p>
         </div>
         <div className={styles.writeTextBox}>
           <input type="text" placeholder='제목' onChange={(e) => setData({ ...data, title: e.target.value })} />
