@@ -6,7 +6,8 @@ import { getSession, useSession, signOut } from "next-auth/react"
 
 import Login from './src/Login';
 import First from './src/First';
-import Loading from './src/Loading';
+import Loading from './Loading';
+
 
 
 export default function Home() {
