@@ -87,7 +87,6 @@ export default function App({ Component, pageProps }) {
   //내 위치
   const centerLat = latitude;
   const centerLng = longitude;
-
   // 거리 계산 함수 (두 지점 사이의 거리를 km 단위로 반환)
   function calcDistance(lat1, lng1, lat2, lng2) {
     const R = 6371; // 지구 반경 (km)
@@ -126,6 +125,7 @@ export default function App({ Component, pageProps }) {
   const [image, setImage] = useState(null);
   const router = useRouter();
   const write = async (title, category, price, content, id) => {
+    console.log(image)
     if (image && title && content && price && id && category != "n") {
       const body = new FormData();
       // db에 저장될 정보를  FormData에 담아서 api로 전달
