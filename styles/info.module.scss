@@ -12,7 +12,6 @@
     font-style: normal;
 }
 
-
 .infoHeader {
     display: flex;
     align-items: center;
@@ -40,14 +39,11 @@
             right: 15px;
         }
     }
-
-
 }
 
 .infoContainer {
     font-family: 'Dovemayo_gothic';
 
-    /* color: rgb(130, 130, 130); */
     .imgBox {
         border-bottom: 1px solid rgb(157, 157, 157);
         position: relative;
@@ -56,47 +52,37 @@
             margin: 10px 10px;
 
             img {
-                max-height: 500px;
+                width: 100%;
+                height: 200px;
             }
         }
 
         .likebtn {
             position: absolute;
-
             bottom: 20px;
             right: 20px;
         }
-
     }
-
     .infoBox {
         border-bottom: 1px solid rgb(157, 157, 157);
-        position: relative;
-
         >.idBox {
-            padding: 20px 25px;
-
+            margin: 20px 25px;
+            position: relative;
             >p {
                 margin: 5px 0;
-
                 &:nth-child(1) {
                     font-size: 24px;
                 }
             }
-        }
-
-        >.dateBox {
-            padding: 0;
-            position: absolute;
-            top: 25%;
-            right: 0;
-            transform: translateY(50%);
-            margin-right: 10px;
-
-            >p {
+            >.dateBox {
+                padding: 0;
+                position: absolute;
+                top: 25%;
+                right: 0;
                 font-size: 18px;
             }
         }
+
     }
 
     .contentBox {
@@ -138,9 +124,11 @@
             border-bottom: 1px solid rgb(157, 157, 157);
             padding: 20px 25px;
             width: 100%;
+
             >form {
                 width: 100%;
                 display: flex;
+
                 >input[type="text"] {
                     width: 80%;
                     all: unset;
@@ -153,7 +141,6 @@
 
                 >button {
                     all: unset;
-                    /* background: #F0E2C6; */
                     width: 100px;
                     height: 50px;
                     border-radius: 10px;
@@ -162,9 +149,6 @@
                     cursor: pointer;
                 }
             }
-
-
-
         }
 
         .commentContent {
@@ -203,4 +187,25 @@
             }
         }
     }
+}
+
+@media all and (min-width:480px) and (max-width:768px) {
+    .infoContainer {
+        font-family: 'Dovemayo_gothic';
+
+        .imgBox {
+            border-bottom: 1px solid rgb(157, 157, 157);
+            position: relative;
+
+            >figure {
+                margin: 10px 10px;
+
+                img {
+                    width: 100%;
+                    height: 500px;
+                }
+            }
+        }
+    }
+
 }
