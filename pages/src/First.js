@@ -46,7 +46,7 @@ function First() {
 
             <div className={styles.SearchCon}>
                 <form onSubmit={(e) => { searchClick(e) }}>
-                    <input type="search" placeholder='찾는물건을 검색해주세요' onChange={(e) => { setSearch(e.target.value) }}>
+                    <input type="search" placeholder='찾는물건을 검색해주세요' enterkeyhint="search"  onChange={(e) => { setSearch(e.target.value) }}>
                     </input>
                 </form>
 

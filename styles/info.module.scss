@@ -131,7 +131,6 @@
 
                 >input[type="text"] {
                     width: 80%;
-                    all: unset;
                     flex-grow: 1;
                     background-color: #eee;
                     height: 50px;
@@ -141,7 +140,7 @@
 
                 >button {
                     all: unset;
-                    width: 100px;
+                    width: 20%;
                     height: 50px;
                     border-radius: 10px;
                     text-align: center;
