@@ -68,10 +68,10 @@ function First() {
             </section>
             <nav className={styles.bottomMenu}>
                 <ul>
-                    <li><Image src={"/images/map.png"} alt="" width={25} height={25} onClick={() => mapMenuClick()} priority/></li>
-                    <li><Image src={"/images/hot.png"} alt="" width={25} height={25} onClick={() => hotMenuClick()} priority/></li>
-                    <li><Image src={"/images/like.png"} alt="" width={25} height={25} onClick={() => LikesMenuClick()} priority/></li>
-                    <li><Image src={"/images/logOut.png"} width={25} height={25} alt="" onClick={() => { logOutFn() }} priority/></li>
+                    <li><Image src={"/images/map.png"} alt="" width={50} height={50} onClick={() => mapMenuClick()} priority/></li>
+                    <li><Image src={"/images/hot.png"} alt="" width={50} height={25} onClick={() => hotMenuClick()} priority/></li>
+                    <li><Image src={"/images/like.png"} alt="" width={50} height={50} onClick={() => LikesMenuClick()} priority/></li>
+                    <li><Image src={"/images/logOut.png"} width={50} height={50} alt="" onClick={() => { logOutFn() }} priority/></li>
                 </ul>
             </nav>
 
