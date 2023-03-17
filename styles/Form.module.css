@@ -11,7 +11,7 @@
 }
 
 .button{
-  @apply w-full bg-gradient-to-r py-2 md:py-4 lg:py-4 from-blue-500 to-indigo-500 rounded-md;
+  @apply w-full bg-gradient-to-r py-2 md:py-4 lg:py-4 from-orange-300 to-red-300 rounded-md;
   @apply py-3 text-gray-50 text-base md:text-lg lg:text-lg;
 }
 

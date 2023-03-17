@@ -44,7 +44,7 @@ function Info() {
                     <div key={productInfo.product_no}>
                         <div className={styles.imgBox} >
                             <figure>
-                                <Image src={productInfo.product_img} width={100} height={100} layout="responsive" unoptimized={true} alt='' />
+                                <Image src={productInfo.product_img} width={100} height={100} layout="fixed" unoptimized={true} alt='' />
                             </figure>
                             <Image src={productInfo.like ? "/images/like2.png" : "/images/like.png"} width={35} height={35} className={styles.likebtn} onClick={() => { updataLike(productInfo.product_no, session.user.email) }} alt='' />
                         </div>
@@ -52,9 +52,7 @@ function Info() {
                             <div className={styles.idBox}>
                                 <p>{productInfo.member_id}</p>  {/* 아이디 , 위치 */}
                                 <p>{productInfo.product_dong}</p>
-                            </div>
-                            <div className={styles.dateBox}>
-                                <p>{productInfo.product_date}</p>
+                                <p className={styles.dateBox}>{productInfo.product_date}</p>
                             </div>
                         </div>
                         <div className={styles.contentBox}>
