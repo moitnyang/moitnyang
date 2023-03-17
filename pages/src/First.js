@@ -36,16 +36,11 @@ function First() {
     return (
         <>
             <div className={styles.firstHeader}>
-                <Image src="/images/logo.png" alt='' width={50} height={50} priority/>
-                <p>모있냥</p>
+                <p>Moitnyang</p>
             </div>
 
             <div className={styles.mainViewBox}>
                 <p>내 주변에 모든지<br/> 다 있다냥~</p>
-                <div>
-                    <img src = "/images/main.png" alt='' />
-                    {/* <Image src="/images/main.png" alt='' width={200} height={200}  /> */}
-                </div>
             </div>
 
 
@@ -75,10 +70,10 @@ function First() {
             </section>
             <nav className={styles.bottomMenu}>
                 <ul>
-                    <li><Image src={"/images/map.png"} alt="" width={25} height={25} onClick={() => mapMenuClick()} priority/>내주변</li>
-                    <li><Image src={"/images/hot.png"} alt="" width={25} height={25} onClick={() => hotMenuClick()} priority/>인기매물</li>
-                    <li><Image src={"/images/like.png"} alt="" width={25} height={25} onClick={() => LikesMenuClick()} priority/>찜</li>
-                    <li><Image src={"/images/logOut.png"} width={25} height={25} alt="" onClick={() => { logOutFn() }} priority/>로그아웃</li>
+                    <li><Image src={"/images/map.png"} alt="" width={25} height={25} onClick={() => mapMenuClick()} priority/></li>
+                    <li><Image src={"/images/hot.png"} alt="" width={25} height={25} onClick={() => hotMenuClick()} priority/></li>
+                    <li><Image src={"/images/like.png"} alt="" width={25} height={25} onClick={() => LikesMenuClick()} priority/></li>
+                    <li><Image src={"/images/logOut.png"} width={25} height={25} alt="" onClick={() => { logOutFn() }} priority/></li>
                 </ul>
             </nav>
 
