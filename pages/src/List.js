@@ -50,8 +50,8 @@ function List() {
             {searchConAct == false
                 ? <ListHead searchConAct={searchConAct} setSearchConAct={setSearchConAct} />
                 : (<div className={styles.SearchConBox}>
-                    <form className={styles.SearchCon} onSubmit={(e) => { searchSubmit(e); }}>
-                        <input type="search" placeholder='찾는물건을 검색해주세요' onChange={(e) => { setSearch(e.target.value) }} ></input>
+                    <form className={styles.SearchCon} action ="" onSubmit={(e) => { searchSubmit(e); }}>
+                        <input type="search" name='search' placeholder='찾는물건을 검색해주세요' enterkeyhint="search" onChange={(e) => { setSearch(e.target.value) }}  ></input>
                         <Image src="/images/close.png" alt="" width={35} height={35} onClick={() => setSearchConAct(false)} className={styles.closeBtn} placeholder="blur"
   blurDataURL={'/images/close.png'}  />
                     </form>
