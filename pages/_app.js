@@ -37,7 +37,7 @@ export default function App({ Component, pageProps }) {
     setProduct(data.data.data);
     setLikeCheck(data.data.likeData);
     setRank(data.data.rankData);
-    
+
   }
 
   ///////////////////////////////////////////////////////////////////////////////////////////
@@ -106,7 +106,16 @@ export default function App({ Component, pageProps }) {
       return { ...location, distance }; // 객체 병합을 통해 거리 정보를 추가
     }).filter(location => location.distance <= 10); // 거리가 10km 이내인 위치 필터링
     // 결과 출력
+    nearbyLocations && nearbyLocations.map((obj) => (
+      likeCheck && likeCheck.map((oobj) => {
+        if (obj.product_no == oobj.product_no) {
+          obj.like = true;
+        }
+      })
+    ))
     setNearProduct(nearbyLocations)
+
+
 
   }
   useEffect(() => {
@@ -154,16 +163,16 @@ export default function App({ Component, pageProps }) {
   const [search, setSearch] = useState();
   const [searchItems, setSearchItems] = useState();
   const searchFn = async (data) => {
-    
-    var data = await axios.get("/api/search",  { params: { search : data } });
+
+    var data = await axios.get("/api/search", { params: { search: data } });
     data.data && data.data.map((obj) => (
       likeCheck && likeCheck.map((oobj) => {
         if (obj.product_no == oobj.product_no) {
-            obj.like = true;
+          obj.like = true;
         }
       })
-    )) 
-     setSearchItems(data.data);
+    ))
+    setSearchItems(data.data);
 
   }
   ////////////////////////////////////////////////////////////////////////////////////////////
@@ -198,10 +207,10 @@ export default function App({ Component, pageProps }) {
       }))
     )
   }
-  useEffect(()=>{
+  useEffect(() => {
     likeProduct();
-  },[likeCheck])
-   /////////////////////////////////////////////////////////////////////////////////////
+  }, [likeCheck])
+  /////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// 댓글 /////////////////////////////////////////////////////////
 
   const [commentList, setList] = useState();

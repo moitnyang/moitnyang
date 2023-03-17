@@ -24,7 +24,9 @@ function First() {
     function mapMenuClick() {
         router.push({ pathname: '/src/List', query: { category: "nearItems" } });
     }
-    function searchClick() {
+    function searchClick(e) {
+        e.preventDefault();
+
         router.push({ pathname: '/src/List', query: { category: "searchItems", search: search } });
     }
     // 로그아웃하면 메인 페이지로 이동
@@ -33,13 +35,28 @@ function First() {
     }
     return (
         <>
-            <div className={styles.SearchCon}>
+            <div className={styles.firstHeader}>
+                <Image src="/images/logo.png" alt='' width={50} height={50} priority/>
+                <p>모있냥</p>
+            </div>
+
+            <div className={styles.mainViewBox}>
+                <p>내 주변에 모든지<br/> 다 있다냥~</p>
                 <div>
-                    <input placeholder='찾는물건을 검색해주세요' onChange={(e) => { setSearch(e.target.value) }}>
-                    </input>
-                    <Image src={`/images/search.png`} alt="" width={20} height={20} onClick={searchClick} className={styles.search} />
+                    <img src = "/images/main.png" alt='' />
+                    {/* <Image src="/images/main.png" alt='' width={200} height={200}  /> */}
                 </div>
-                <Image src="/images/logOut.png" width={30} height={30} alt="" onClick={() => { logOutFn() }} className={styles.logOut} />
+            </div>
+
+
+            <div className={styles.SearchCon}>
+                <form onSubmit={(e) => { searchClick(e) }}>
+                    <input type="search" placeholder='찾는물건을 검색해주세요' onChange={(e) => { setSearch(e.target.value) }}>
+                    </input>
+
+                    {/* <Image src={`/images/search.png`} alt="" width={20} height={20}  onClick={searchClick} className={styles.search} /> */}
+                </form>
+
             </div>
             <section className={styles.category}>
                 {
@@ -49,7 +66,7 @@ function First() {
                                 key={idx}
                                 onClick={() => { router.push({ pathname: '/src/List', query: { category: el } }) }}
                             >
-                                <Image src={`/images/menu/${el}.png`} alt="" width={100} height={96} />
+                                <Image src={`/images/menu/${el}.png`} alt="" width={100} height={96} priority />
                                 <figcaption>{categoryTranslate(el)}</figcaption>
                             </figure>
                         )
@@ -58,9 +75,10 @@ function First() {
             </section>
             <nav className={styles.bottomMenu}>
                 <ul>
-                    <li onClick={() => mapMenuClick()}><Image src={"/images/map.png"} alt="" width={24} height={25} />내주변</li>
-                    <li onClick={() => hotMenuClick()}><Image src={"/images/hot.png"} alt="" width={30} height={30} />인기매물</li>
-                    <li onClick={() => LikesMenuClick()}><Image src={"/images/like.png"} alt="" width={25} height={25} />찜</li>
+                    <li><Image src={"/images/map.png"} alt="" width={25} height={25} onClick={() => mapMenuClick()} priority/>내주변</li>
+                    <li><Image src={"/images/hot.png"} alt="" width={25} height={25} onClick={() => hotMenuClick()} priority/>인기매물</li>
+                    <li><Image src={"/images/like.png"} alt="" width={25} height={25} onClick={() => LikesMenuClick()} priority/>찜</li>
+                    <li><Image src={"/images/logOut.png"} width={25} height={25} alt="" onClick={() => { logOutFn() }} priority/>로그아웃</li>
                 </ul>
             </nav>
 

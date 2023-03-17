@@ -74,7 +74,7 @@ export default async function handler(req, res) {
     const selectProduct = async () => {
         const member_id = query.id;
         // 전체 상품 불러오기
-        var data = await executeQuery("SELECT * FROM product ", []);
+        var data = await executeQuery("SELECT * FROM product ORDER BY product_no DESC", []);
         // 좋아요한 상품 불러오기 member_id 를 갖고와야함
         var likeData = await executeQuery("SELECT * FROM product WHERE product_no IN (SELECT product_no FROM product_like WHERE member_id = ?)", [member_id])
         // 좋아요 랭크순 상품 불러오기

@@ -4,13 +4,6 @@ import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { executeQuery } from "../db";
 
-
-// const client_id = "337106084645-8nha4v8f3vg4fut11gjs9qhrp6nbumuk.apps.googleusercontent.com"
-// const client_secret = "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"
-
-// GITHUB_ID = f266d57c5b576b16893b
-// GITHUB_SECRET = 8c5b8c8b200ab2c522f2253893f55a9153a2490c
-
 export default NextAuth({
 
   providers: [
@@ -38,7 +31,7 @@ export default NextAuth({
             user[0].email = user[0].member_id;
             return user[0]
           } else {
-            return null;
+            throw new Error("아이디와 비밀번호가 틀립니다.");
           }
         // let user = await fetch(
         //   `http://localhost:3000/api/auth/signup?password=${credentials.password}&id=${credentials.id}`,
@@ -66,7 +59,7 @@ export default NextAuth({
     }),
 
   ],
-
+  secret:'aabb',
   session: {
     strategy: 'jwt',
     maxAge: 24 * 60 * 60,
@@ -96,8 +89,6 @@ export default NextAuth({
       return session;
     },
   },
-  pages: {
-    signUp: '/auth/sigup',
-  }
+
 });
 

@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react"
 
 
 function List() {
-    const { getProduct, setCategory, product, rank, likeCheck, nearProduct, searchFn, searchItems, search, setSearch } = useContext(CategoryContext);
+    const { getProduct, product, rank, likeCheck, nearProduct, searchFn, searchItems, search, setSearch } = useContext(CategoryContext);
     const [searchConAct, setSearchConAct] = useState(false);
     const { categoryTranslate } = useContext(CategoryTranslate);
     const { data: session, status } = useSession();
@@ -39,19 +39,24 @@ function List() {
     //검색 결과
     const searchItemsMake = searchItems && searchItems.map((item, idx) => { return <Item key={idx} item={item} /> })
 
+    function searchSubmit(e) {
+        e.preventDefault();
+        setSearchConAct(false);
+        router.push({ pathname: '/src/List', query: { category: "searchItems", search: search } });
+    }
+
     return (
         <>
             {searchConAct == false
                 ? <ListHead searchConAct={searchConAct} setSearchConAct={setSearchConAct} />
-                : (<>
-                    <div className={styles.SearchCon}>
-                        <input placeholder='찾는물건을 검색해주세요' onChange={(e) => { setSearch(e.target.value) }} ></input>
-                        <Image src="/images/search.png" alt="" width={20} height={20} onClick={() => { searchFn(search); setCategory("searchItems"); setSearchConAct(false) }} />
-                    </div>
+                : (<div className={styles.SearchConBox}>
+                    <form className={styles.SearchCon} onSubmit={(e) => { searchSubmit(e); }}>
+                        <input type="search" placeholder='찾는물건을 검색해주세요' onChange={(e) => { setSearch(e.target.value) }} ></input>
+                    </form>
                     <button onClick={() => setSearchConAct(false)} className={styles.closeBtn}>
                         <Image src="/images/close.png" alt="" width={35} height={35} />
                     </button>
-                </>)
+                </div>)
             }
             <ul className={styles.itemList}>
                 {
@@ -71,7 +76,6 @@ function List() {
 
 function ListHead({ searchConAct, setSearchConAct }) {
     const router = useRouter();
-    const { category } = useContext(CategoryContext);
     const { categoryTranslate } = useContext(CategoryTranslate);
 
     function searchBtnClick() {
@@ -81,18 +85,20 @@ function ListHead({ searchConAct, setSearchConAct }) {
     return (
         <div className={styles.listHeader}>
             <button onClick={() => router.push({ pathname: '/src/First' })}>
-                <Image src="/images/back.png" alt="" width={25} height={25} />
+                <Image src="/images/back.png" alt="" width={25} height={25} priority/>
             </button>
-            {
-                router.query.category != "searchItems" ?? router.query.category != "likeItems" ?? router.query.category != "hotItems" ?? router.query.category != "nearItems" ?? <Image src={`/images/menu/${router.query.category}.png`} alt="" width={65} height={65} />
-            }
-            <p> {categoryTranslate(router.query.category)} </p>
-            <button onClick={() => router.push({ pathname: '/src/Write' })} className={styles.writeBtn}>
-                <Image src="/images/icWrite.png" alt="" width={35} height={31} />
-            </button>
-            <button onClick={() => searchBtnClick()}>
-                <Image src="/images/search.png" alt="" width={25} height={25} className={styles.searchBtn} />
-            </button>
+            <div>
+                <Image src={router.query.category ? `/images/menu/${router.query.category}.png` : ""} alt="" width={65} height={65} priority />
+                <p> {categoryTranslate(router.query.category)} </p>
+            </div>
+            <div>
+                <button onClick={() => router.push({ pathname: '/src/Write',query: { category: router.query.category} })} className={styles.writeBtn}>
+                    <Image src="/images/icWrite.png" alt="" width={35} height={25} priority/>
+                </button>
+                <button onClick={() => searchBtnClick()}>
+                    <Image src="/images/search.png" alt="" width={25} height={25} className={styles.searchBtn} priority />
+                </button>
+            </div>
         </div>
     )
 }
@@ -104,7 +110,7 @@ function Item({ item }) {
     // 상품정보로 이동
     const infoMove = (e, no) => {
         if (e.target.className != "list_searchBtn___E6C7") {
-            router.push({ pathname: '/src/Info', query: { no: item.product_no, category: router.query.category } })
+            router.push({ pathname: '/src/Info', query: { no: item.product_no, category: router.query.category, search: router.query.search } })
         }
 
     }

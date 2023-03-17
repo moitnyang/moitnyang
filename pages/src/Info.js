@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 import { CategoryContext } from '../_app';
-import {useSession } from "next-auth/react"
+import { useSession } from "next-auth/react"
 function Info() {
     const router = useRouter();
     const { data: session, status } = useSession();
@@ -12,7 +12,7 @@ function Info() {
     const [comment, setComment] = useState();
     //새로고침시 다시 데이터 받아옴
     useEffect(() => {
-        getProduct(session?.user.email); 
+        getProduct(session?.user.email);
         getProductInfo(router.query.no);
         commentSelect(router.query.no);
     }, [router.query.no])
@@ -21,20 +21,21 @@ function Info() {
         getProductInfo(router.query.no);
     }, [likeCheck])
     // 댓글
-    function commentClick(no){
-        commentInsert(no, comment, session.user.email);
+    function commentClick(e,no) {
+        e.preventDefault();
+        commentInsert(no, comment, session?.user.email);
         setComment('')
     }
-    
+
     return (
         <>
             <div className={styles.infoHeader}>
-                <button onClick={() => router.push({ pathname: '/src/List', query:{category : router.query.category} })}>
-                    <Image src="/images/back.png" alt="" width={25} height={25} />
+                <button onClick={() => router.push({ pathname: '/src/List', query: { category: router.query.category, search: router.query.search } })}>
+                    <Image src="/images/back.png" alt="" width={25} height={25} priority />
                 </button>
                 <p>물건 상세정보</p>
                 <button onClick={() => router.push({ pathname: '/src/First' })}>
-                    <Image src="/images/HOME.svg" alt="" width={35} height={35} className={styles.home} />
+                    <Image src="/images/HOME.svg" alt="" width={35} height={35} className={styles.home} priority />
                 </button>
             </div>
             {
@@ -45,7 +46,7 @@ function Info() {
                             <figure>
                                 <Image src={productInfo.product_img} width={100} height={100} layout="responsive" unoptimized={true} alt='' />
                             </figure>
-                            <Image src={productInfo.like ? "/images/like2.png" : "/images/like.png"} width={35} height={35} className={styles.likebtn} onClick={() => { updataLike(productInfo.product_no,session.user.email) }} alt='' />
+                            <Image src={productInfo.like ? "/images/like2.png" : "/images/like.png"} width={35} height={35} className={styles.likebtn} onClick={() => { updataLike(productInfo.product_no, session.user.email) }} alt='' />
                         </div>
                         <div className={styles.infoBox}>
                             <div className={styles.idBox}>
@@ -68,8 +69,10 @@ function Info() {
 
                     <div className={styles.commentBox}>
                         <div className={styles.inputBox}>
-                            <input type="text" onChange={(e) => setComment(e.target.value)} value={comment} />
-                            <button onClick={() =>{commentClick(router.query.no)}}>댓글 달기</button>
+                            <form onSubmit={(e) => { commentClick(e,router.query.no) }}>
+                                <input type="text" onChange={(e) => setComment(e.target.value)} value={comment?comment : ""} placeholder="댓글 작성" />
+                                <button type="submit" >등록</button>
+                            </form>
                         </div>
                         <div className={styles.commentContent}>
                             {/* comment 컴포넌트로 뿌려줌 */}
