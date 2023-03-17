@@ -12,7 +12,6 @@ import { useRouter } from "next/router";
 
 
 export default function Login() {
-
   const [show, setShow] = useState(false);
   const { data: session, status } = useSession();
   const router = useRouter()
