@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Link from "next/link";
 import Head from "next/head";
 import { getSession, useSession, signOut } from "next-auth/react"
-import Loading from './Loading';
+import Loading from './src/Loading';
 import Login from './src/Login';
 import First from './src/First';
 
