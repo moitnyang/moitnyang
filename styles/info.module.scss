@@ -4,12 +4,14 @@
     font-weight: normal;
     font-style: normal;
 }
+
 @font-face {
     font-family: 'Dovemayo_gothic';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.1/Dovemayo_gothic.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }
+
 .infoHeader {
     display: flex;
     align-items: center;
@@ -18,11 +20,13 @@
     padding: 0 20px;
     font-family: 'Cafe24Ssurround';
     border-bottom: 1px solid rgb(157, 157, 157);
+
     p {
         margin-left: 5px;
         color: rgb(130, 130, 130);
         font-size: 24px;
     }
+
     button {
         background-color: white;
         border: none;
@@ -36,18 +40,23 @@
         }
     }
 }
+
 .infoContainer {
     font-family: 'Dovemayo_gothic';
+
     .imgBox {
         border-bottom: 1px solid rgb(157, 157, 157);
         position: relative;
+
         >figure {
             margin: 10px 10px;
+
             img {
                 width: 100%;
                 height: 200px;
             }
         }
+
         .likebtn {
             position: absolute;
             bottom: 20px;
@@ -56,32 +65,29 @@
     }
     .infoBox {
         border-bottom: 1px solid rgb(157, 157, 157);
-        position: relative;
         >.idBox {
-            padding: 20px 25px;
+            margin: 20px 25px;
+            position: relative;
             >p {
                 margin: 5px 0;
-
                 &:nth-child(1) {
                     font-size: 24px;
                 }
             }
-        }
-        >.dateBox {
-            padding: 0;
-            position: absolute;
-            top: 25%;
-            right: 0;
-            transform: translateY(50%);
-            margin-right: 10px;
-
-            >p {
+            >.dateBox {
+                padding: 0;
+                position: absolute;
+                top: 25%;
+                right: 0;
                 font-size: 18px;
             }
         }
+
     }
+
     .contentBox {
         border-bottom: 1px solid rgb(157, 157, 157);
+
         >div {
             padding: 20px 25px;
 
@@ -111,15 +117,18 @@
             }
         }
     }
+
     .commentBox {
         .inputBox {
             position: relative;
             border-bottom: 1px solid rgb(157, 157, 157);
             padding: 20px 25px;
             width: 100%;
+
             >form {
                 width: 100%;
                 display: flex;
+
                 >input[type="text"] {
                     width: 80%;
                     all: unset;
@@ -129,6 +138,7 @@
                     border-radius: 25px;
                     padding: 0 25px;
                 }
+
                 >button {
                     all: unset;
                     width: 100px;
@@ -140,6 +150,7 @@
                 }
             }
         }
+
         .commentContent {
             padding: 20px 25px;
 
@@ -181,6 +192,7 @@
 @media all and (min-width:480px) and (max-width:768px) {
     .infoContainer {
         font-family: 'Dovemayo_gothic';
+
         .imgBox {
             border-bottom: 1px solid rgb(157, 157, 157);
             position: relative;

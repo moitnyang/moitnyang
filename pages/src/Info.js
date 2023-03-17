@@ -52,9 +52,7 @@ function Info() {
                             <div className={styles.idBox}>
                                 <p>{productInfo.member_id}</p>  {/* 아이디 , 위치 */}
                                 <p>{productInfo.product_dong}</p>
-                            </div>
-                            <div className={styles.dateBox}>
-                                <p>{productInfo.product_date}</p>
+                                <p className={styles.dateBox}>{productInfo.product_date}</p>
                             </div>
                         </div>
                         <div className={styles.contentBox}>

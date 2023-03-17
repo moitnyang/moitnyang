@@ -52,10 +52,9 @@ function List() {
                 : (<div className={styles.SearchConBox}>
                     <form className={styles.SearchCon} onSubmit={(e) => { searchSubmit(e); }}>
                         <input type="search" placeholder='찾는물건을 검색해주세요' onChange={(e) => { setSearch(e.target.value) }} ></input>
+                        <Image src="/images/close.png" alt="" width={35} height={35} onClick={() => setSearchConAct(false)} className={styles.closeBtn} />
                     </form>
-                    <button onClick={() => setSearchConAct(false)} className={styles.closeBtn}>
-                        <Image src="/images/close.png" alt="" width={35} height={35} />
-                    </button>
+
                 </div>)
             }
             <ul className={styles.itemList}>
@@ -84,14 +83,14 @@ function ListHead({ searchConAct, setSearchConAct }) {
     return (
         <div className={styles.listHeader}>
             <button onClick={() => router.push({ pathname: '/src/First' })}>
-                <Image src="/images/back.png" alt="" width={25} height={25} priority/>
+                <Image src="/images/back.png" alt="" width={25} height={25} priority />
             </button>
             <div>
                 <p> {categoryTranslate(router.query.category)} </p>
             </div>
             <div>
-                <button onClick={() => router.push({ pathname: '/src/Write',query: { category: router.query.category} })} className={styles.writeBtn}>
-                    <Image src="/images/icWrite.png" alt="" width={35} height={25} priority/>
+                <button onClick={() => router.push({ pathname: '/src/Write', query: { category: router.query.category } })} className={styles.writeBtn}>
+                    <Image src="/images/icWrite.png" alt="" width={35} height={25} priority />
                 </button>
                 <button onClick={() => searchBtnClick()}>
                     <Image src="/images/search.png" alt="" width={25} height={25} className={styles.searchBtn} priority />
@@ -105,8 +104,8 @@ function Item({ item }) {
     const { updataLike } = useContext(CategoryContext);
     const router = useRouter();
     const { data: session } = useSession();
-    
-    
+
+
     // 상품정보로 이동
     const infoMove = (e, no) => {
         if (e.target.className != "list_likeItem__bq0q9") {
@@ -114,20 +113,20 @@ function Item({ item }) {
         }
 
     }
-    function likeFn(e,no,id){
+    function likeFn(e, no, id) {
         e.stopPropagation();
-        updataLike(no,id)
+        updataLike(no, id)
     }
     return (
 
         <li loading="lazy" className='item' onClick={(e) => { infoMove(e, item.product_no) }}>
-            <Image src={item.product_img} unoptimized={true} alt="" width={80} height={80} className={styles.product}/>
+            <Image src={item.product_img} unoptimized={true} alt="" width={80} height={80} className={styles.product} />
             <div>
                 <p>{item.product_title}</p>
                 <p>{item.product_dong}·{item.product_date}</p>
                 <p>{Number(item.product_price).toLocaleString('kr-KR')}원</p>
             </div>
-            <div className={styles.likeItem} onClick={(e) => {likeFn(e,item.product_no, session.user.email) }}>
+            <div className={styles.likeItem} onClick={(e) => { likeFn(e, item.product_no, session.user.email) }}>
                 {
                     <Image src={item.like ? "/images/like2.png" : "/images/like.png"} alt="" width={20} height={20} className={styles.searchBtn} />
                 }
