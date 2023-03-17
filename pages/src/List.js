@@ -66,9 +66,7 @@ function List() {
                                 (router.query.category != "nearItems" ?
                                     product && product.filter(item => item.product_category == categoryTranslate(router.query.category)).map((item, idx) => { return <Item key={idx} item={item} /> }) :
                                     nearItemMake) : hotItemListMake) : myItemsListMake
-
                 }
-
             </ul>
         </>
     )
