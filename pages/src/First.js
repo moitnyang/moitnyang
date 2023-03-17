@@ -59,7 +59,8 @@ function First() {
                                 key={idx}
                                 onClick={() => { router.push({ pathname: '/src/List', query: { category: el } }) }}
                             >
-                                <Image src={`/images/menu/${el}.png`} alt="" width={100} height={96} priority />
+                                <Image src={`/images/menu/${el}.png`} alt="" width={100} height={96} placeholder="blur"
+  blurDataURL={`/images/menu/${el}.png`}  />
                                 <figcaption>{categoryTranslate(el)}</figcaption>
                             </figure>
                         )
@@ -68,10 +69,14 @@ function First() {
             </section>
             <nav className={styles.bottomMenu}>
                 <ul>
-                    <li><Image src={"/images/map.png"} alt="" width={50} height={50} onClick={() => mapMenuClick()} priority/></li>
-                    <li><Image src={"/images/hot.png"} alt="" width={50} height={25} onClick={() => hotMenuClick()} priority/></li>
-                    <li><Image src={"/images/like.png"} alt="" width={50} height={50} onClick={() => LikesMenuClick()} priority/></li>
-                    <li><Image src={"/images/logOut.png"} width={50} height={50} alt="" onClick={() => { logOutFn() }} priority/></li>
+                    <li><Image src={"/images/map.png"} alt="" width={50} height={50} onClick={() => mapMenuClick()} placeholder="blur"
+  blurDataURL={'/images/map.png'} /></li>
+                    <li><Image src={"/images/hot.png"} alt="" width={50} height={50} onClick={() => hotMenuClick()} placeholder="blur"
+  blurDataURL={'/images/hot.png'} /></li>
+                    <li><Image src={"/images/like.png"} alt="" width={50} height={50} onClick={() => LikesMenuClick()} placeholder="blur"
+  blurDataURL={'/images/like.png'} /></li>
+                    <li><Image src={"/images/logOut.png"} width={50} height={50} alt="" onClick={() => { logOutFn() }} placeholder="blur"
+  blurDataURL={'/images/logOut.png'} /></li>
                 </ul>
             </nav>
 

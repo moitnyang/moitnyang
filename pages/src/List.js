@@ -52,7 +52,8 @@ function List() {
                 : (<div className={styles.SearchConBox}>
                     <form className={styles.SearchCon} onSubmit={(e) => { searchSubmit(e); }}>
                         <input type="search" placeholder='찾는물건을 검색해주세요' onChange={(e) => { setSearch(e.target.value) }} ></input>
-                        <Image src="/images/close.png" alt="" width={35} height={35} onClick={() => setSearchConAct(false)} className={styles.closeBtn} />
+                        <Image src="/images/close.png" alt="" width={35} height={35} onClick={() => setSearchConAct(false)} className={styles.closeBtn} placeholder="blur"
+  blurDataURL={'/images/close.png'}  />
                     </form>
 
                 </div>)
@@ -83,17 +84,20 @@ function ListHead({ searchConAct, setSearchConAct }) {
     return (
         <div className={styles.listHeader}>
             <button onClick={() => router.push({ pathname: '/src/First' })}>
-                <Image src="/images/back.png" alt="" width={25} height={25} priority />
+                <Image src="/images/back.png" alt="" width={25} height={25}  placeholder="blur"
+  blurDataURL={'/images/back.png'} />
             </button>
             <div>
                 <p> {categoryTranslate(router.query.category)} </p>
             </div>
             <div>
                 <button onClick={() => router.push({ pathname: '/src/Write', query: { category: router.query.category } })} className={styles.writeBtn}>
-                    <Image src="/images/icWrite.png" alt="" width={35} height={25} priority />
+                    <Image src="/images/icWrite.png" alt="" width={35} height={25} placeholder="blur"
+  blurDataURL={'/images/icWrite.png'} />
                 </button>
                 <button onClick={() => searchBtnClick()}>
-                    <Image src="/images/search.png" alt="" width={25} height={25} className={styles.searchBtn} priority />
+                    <Image src="/images/search.png" alt="" width={25} height={25} className={styles.searchBtn} placeholder="blur"
+  blurDataURL={'/images/search.png'} />
                 </button>
             </div>
         </div>
@@ -128,7 +132,8 @@ function Item({ item }) {
             </div>
             <div className={styles.likeItem} onClick={(e) => { likeFn(e, item.product_no, session.user.email) }}>
                 {
-                    <Image src={item.like ? "/images/like2.png" : "/images/like.png"} alt="" width={20} height={20} className={styles.searchBtn} />
+                    <Image src={item.like ? "/images/like2.png" : "/images/like.png"} alt="" width={20} height={20} className={styles.searchBtn}  placeholder="blur"
+                    blurDataURL={item.like ? "/images/like2.png" : "/images/like.png"} />
                 }
 
                 <p>{item.likenum}</p>

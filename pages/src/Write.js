@@ -94,7 +94,8 @@ function Write() {
     <>
       <div className={styles.writeHeader}>
         <button onClick={() => router.push({ pathname: '/src/List', query: { category: router.query.category } })}>
-          <Image src="/images/back.png" alt="" width={25} height={25} />
+          <Image src="/images/back.png" alt="" width={25} height={25} placeholder="blur"
+                    blurDataURL={'/images/back.png'}/>
         </button>
         <p>물건 올리기</p>
         <button className={styles.submitBtn} onClick={() => { write(data.title, data.category, data.price, data.content, session.user.email) }}>완료</button>

@@ -31,11 +31,13 @@ function Info() {
         <>
             <div className={styles.infoHeader}>
                 <button onClick={() => router.push({ pathname: '/src/List', query: { category: router.query.category, search: router.query.search } })}>
-                    <Image src="/images/back.png" alt="" width={25} height={25} priority />
+                    <Image src="/images/back.png" alt="" width={25} height={25} placeholder="blur"
+                    blurDataURL={'/images/back.png'} />
                 </button>
                 <p>물건 상세정보</p>
                 <button onClick={() => router.push({ pathname: '/src/First' })}>
-                    <Image src="/images/HOME.svg" alt="" width={35} height={35} className={styles.home} priority />
+                    <Image src="/images/HOME.svg" alt="" width={35} height={35} className={styles.home} placeholder="blur"
+                    blurDataURL={'/images/HOME.svg'}/>
                 </button>
             </div>
             {
@@ -46,7 +48,8 @@ function Info() {
                             <figure>
                                 <Image src={productInfo.product_img} width={100} height={100} layout="fixed" unoptimized={true} alt='' />
                             </figure>
-                            <Image src={productInfo.like ? "/images/like2.png" : "/images/like.png"} width={35} height={35} className={styles.likebtn} onClick={() => { updataLike(productInfo.product_no, session.user.email) }} alt='' />
+                            <Image src={productInfo.like ? "/images/like2.png" : "/images/like.png"} width={35} height={35} className={styles.likebtn} onClick={() => { updataLike(productInfo.product_no, session.user.email) }} alt=''placeholder="blur"
+                    blurDataURL={productInfo.like ? "/images/like2.png" : "/images/like.png"} />
                         </div>
                         <div className={styles.infoBox}>
                             <div className={styles.idBox}>
