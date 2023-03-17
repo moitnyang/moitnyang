@@ -53,7 +53,7 @@ export default async function handler(req, res) {
             const uploadCheck = await uploadFile(fileBuffer, fileName, fileType);  //이미지 업로드에 관한 함수
             
             if (uploadCheck.status == 200) { //이미지 저장 성공
-                //이미지 저장 성공시 DB에 저장INSERT INTO `product`(`product_no`, `product_title`, `product_price`, `product_img`, `product_content`, `product_date`, `product_lng`, `product_category`, `likenum`, `member_id`, `product_dong`, `product_lat`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]','[value-9]','[value-10]','[value-11]','[value-12]')
+                //이미지 저장 성공시 DB에 저장
                 await executeQuery("INSERT INTO product( product_title, product_price, product_img, product_content, product_date, product_lng, product_category, member_id, product_dong, product_lat) VALUES (?,?,?,?,?,?,?,?,?,?)",
                     [title, price, uploadCheck.url, content, date, lng, category, member_id, dong, lat]).then(res => {
                         console.log("저장");
@@ -76,7 +76,7 @@ export default async function handler(req, res) {
         // 전체 상품 불러오기
         var data = await executeQuery("SELECT * FROM product ORDER BY product_no DESC", []);
         // 좋아요한 상품 불러오기 member_id 를 갖고와야함
-        var likeData = await executeQuery("SELECT * FROM product WHERE product_no IN (SELECT product_no FROM product_like WHERE member_id = ?)", [member_id])
+        var likeData = await executeQuery("SELECT * FROM product WHERE product_no IN (SELECT product_no FROM product_like WHERE member_id = ? ) ORDER BY product_no DESC", [member_id])
         // 좋아요 랭크순 상품 불러오기
         var rankData = await executeQuery("SELECT * FROM product ORDER BY likenum DESC LIMIT 5",[]);
         return res.status(200).json({
