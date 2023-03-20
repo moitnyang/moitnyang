@@ -163,7 +163,7 @@ export default function App({ Component, pageProps }) {
   const [search, setSearch] = useState();
   const [searchItems, setSearchItems] = useState();
   const searchFn = async (data) => {
-
+   
     var data = await axios.get("/api/search", { params: { search: data } });
     data.data && data.data.map((obj) => (
       likeCheck && likeCheck.map((oobj) => {

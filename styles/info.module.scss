@@ -43,20 +43,15 @@
 
 .infoContainer {
     font-family: 'Dovemayo_gothic';
-
     .imgBox {
         border-bottom: 1px solid rgb(157, 157, 157);
         position: relative;
-
         >figure {
             margin: 10px 10px;
-
             img {
                 width: 100%;
-                height: 200px;
             }
         }
-
         .likebtn {
             position: absolute;
             bottom: 20px;

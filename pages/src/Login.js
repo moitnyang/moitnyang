@@ -26,7 +26,7 @@ export default function Login() {
   })
   async function onSubmit(values) {
     const result = await signIn("credentials", {
-      redirect: false,
+      redirect: true,
       id: values.id,
       password: values.password,
       callbackUrl: "/src/First",
