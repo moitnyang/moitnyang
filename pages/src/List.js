@@ -124,7 +124,7 @@ function Item({ item }) {
     return (
 
         <li loading="lazy" className='item' onClick={(e) => { infoMove(e, item.product_no) }}>
-            <Image src={item.product_img} unoptimized={true} alt="" width={80} height={80} className={styles.product} />
+            <Image src={item.product_img} unoptimized={true} alt="" width={80} height={80} layout="fixed " className={styles.product} />
             <div>
                 <p>{item.product_title}</p>
                 <p>{item.product_dong}·{item.product_date}</p>

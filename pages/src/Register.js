@@ -35,7 +35,7 @@ export default function Register() {
     if(response.success){
       
       console.log("회원가입 성공");
-      router.push("/src/First")
+      router.push("/src/Login")
     }else{
       alert("같은 아이디가 있습니다.");
     }

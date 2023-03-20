@@ -60,7 +60,10 @@
             width: 80px;
             border-radius: 20px;
         }
-
+        >img{
+            flex-shrink: 0;
+            object-fit: cover;
+        }
         div {
             display: flex;
             flex-direction: column;
