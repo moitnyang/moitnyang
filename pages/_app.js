@@ -125,7 +125,6 @@ export default function App({ Component, pageProps }) {
   const [image, setImage] = useState(null);
   const router = useRouter();
   const write = async (title, category, price, content, id) => {
-    console.log(image)
     if (image && title && content && price && id && category != "n") {
       const body = new FormData();
       // db에 저장될 정보를  FormData에 담아서 api로 전달

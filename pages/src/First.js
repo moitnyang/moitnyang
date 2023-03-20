@@ -16,6 +16,7 @@ function First() {
     }, [status])
     // 메뉴 이동
     function LikesMenuClick() {
+        
         router.push({ pathname: '/src/List', query: { category: "likeItems" } });
     }
     function hotMenuClick() {
