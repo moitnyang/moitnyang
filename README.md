@@ -1,4 +1,4 @@
-# [모있냥](loso762.github.io/WIS/)
+# [모있냥](https://port-0-moitnyang-4uvg2mlef6ku98.sel3.cloudtype.app/)
 
 <br>
 <br>
